@@ -1,0 +1,44 @@
+name: "publish-development"
+
+on:
+  push:
+    branches:
+      - develop
+      
+jobs:
+  release:
+    name: publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+          registry-url: https://registry.npmjs.org
+      - name: setup checkout
+        uses: actions/checkout@v2
+        with:
+          ref: develop
+      - name: Setup npmrc
+        run: | 
+          echo -e "@fullexpression:registry=https://npm.pkg.github.com/fullexpression\n//npm.pkg.github.com/:_authToken=${{secrets.NPM_AUTH_TOKEN}}\nregistry=https://registry.npmjs.org" > .npmrc
+          git config --global core.excludesfile .npmrc
+      - name: Install packages
+        run: npm install
+      - name: Setting git author
+        run: | 
+          git config --global user.email "ricardo1992rocha@gmail.com"
+          git config --global user.name "Ricardo Rocha"
+      - name: Increase software version
+        run: npm version prerelease
+      - name: Build
+        run: npm run build
+      - name: Test
+        run: npm run build-test
+      - name: Publish package
+        run: npm publish ./dist
+      - name: Commit new package version
+        run: |
+          git add package.json
+          git commit -m "Update version"
+          git push
