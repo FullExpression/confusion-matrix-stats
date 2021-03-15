@@ -6,7 +6,8 @@
     "scripts": {
         "build": "./node_modules/.bin/tsc",
         "test": "jest --watch",
-        "build-test": "jest"
+        "build-test": "jest",
+        "docs": "typedoc --out docs src/index.ts"
     },
     "repository": {
         "type": "git",
