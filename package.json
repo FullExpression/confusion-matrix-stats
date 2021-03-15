@@ -1,13 +1,15 @@
 {
     "name": "@fullexpression/confusion-matrix-stats",
-    "version": "1.0.0-alpha.1",
+    "version": "1.0.0-alpha.2",
     "description": "Calculate various statistics from a confusion matrixCalculates statistical value from a confusion matrix.",
-    "main": "index.ts",
+    "main": "index.js",
+    "types": "index.d.ts",
     "scripts": {
         "build": "./node_modules/.bin/tsc",
         "test": "jest --watch",
         "build-test": "jest",
-        "docs": "typedoc --out docs src/index.ts"
+        "docs": "typedoc --out docs src/index.ts",
+        "postbuild": "copy package.json dist"
     },
     "repository": {
         "type": "git",
