@@ -1,6 +1,5 @@
 # Dependecy directory
 node_modules
-package-lock.json
 
 # Generated Files
 lib
