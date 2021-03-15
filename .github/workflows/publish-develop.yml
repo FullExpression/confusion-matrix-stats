@@ -15,10 +15,10 @@ jobs:
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org
-      # - name: setup checkout
-      #   uses: actions/checkout@v2
-      #   with:
-      #     ref: develop
+      - name: setup checkout
+        uses: actions/checkout@v2
+        with:
+          ref: develop
       # # - name: Setup npmrc
       # #   run: | 
       # #     echo -e "@fullexpression:registry=https://npm.pkg.github.com/fullexpression\n//npm.pkg.github.com/:_authToken=${{secrets.NPM_AUTH_TOKEN}}\nregistry=https://registry.npmjs.org" > .npmrc
