@@ -30,7 +30,7 @@ jobs:
           git config --global user.email "ricardo1992rocha@gmail.com"
           git config --global user.name "Ricardo Rocha"
       - name: Increase software version
-        run: npm version prerelease
+        run: npm version prerelease --no-git-tag-version
       - name: Build
         run: npm run build
       - name: Test
