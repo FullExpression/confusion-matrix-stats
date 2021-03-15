@@ -1,5 +1,5 @@
 {
-    "name": "confusion-matrix-stats",
+    "name": "@fullexpression/confusion-matrix-stats",
     "version": "1.0.0-alpha.0",
     "description": "Calculate various statistics from a confusion matrixCalculates statistical value from a confusion matrix.",
     "main": "index.ts",
