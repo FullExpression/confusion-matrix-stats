@@ -1,4 +1,4 @@
-name: "publish-development"
+name: "publish-develop"
 
 on:
   push:
