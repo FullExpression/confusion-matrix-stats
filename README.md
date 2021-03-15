@@ -39,9 +39,9 @@ For each metric calculation, is possible to define a different configurations in
 const labelAccuracy = confusionMatrix.f1Score({ label: "Sadness", average: AverageMethod.Macro});
 ```
 
-## Examples
+## 👩🏻‍🏫 Examples
 
-/// MISING INFORMATIOn
+You have in [here](https://github.com/FullExpression/confusion-matrix-stats-examples) examples for different languages/frameworks.
 
 ## 📚 Documentation
 
