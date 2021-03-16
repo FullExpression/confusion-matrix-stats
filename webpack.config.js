@@ -4,7 +4,6 @@ const {version} = require('./package.json');
 
 module.exports = {
   mode: "production",
-  devtool: "inline-source-map",
   entry: {
     main: "./dist/index.js",
   },
