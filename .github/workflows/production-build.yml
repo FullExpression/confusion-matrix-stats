@@ -37,6 +37,11 @@ jobs:
         run: npm publish ./dist
       - name: Increase software version
         run: npm version patch --no-git-tag-version
+      - name: Commit new package version
+        run: |
+          git add package.json
+          git commit -m "Update version"
+          git push
       - name: Generate documentation
         run: npm run docs
       - name: Publish documentation
