@@ -35,6 +35,4 @@ jobs:
         run: npm run build
       - name: Test
         run: npm run build-test
-      - name: Publish package
-        run: npm publish ./dist
       
