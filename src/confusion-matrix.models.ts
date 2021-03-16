@@ -1166,16 +1166,6 @@ export class ConfusionMatrix {
 }
 
 /**
- * Different sizes available for the confusion matrix visual component.
- */
-export enum ConfusionMatrixSizes {
-    Small = 'small',
-    Medium = 'medium',
-    Large = 'large',
-    ExtraLarge = 'extra-large'
-}
-
-/**
  * Define the average method to be use in some confusion matrix calculation.
  */
 export enum AverageMethod {

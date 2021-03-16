@@ -35,6 +35,8 @@ jobs:
         run: npm run build-test
       - name: Publish package
         run: npm publish ./dist
+      - name: Increase software version
+        run: npm version prerelease --no-git-tag-version
       - name: Add all resources to source control
         run: |
           git add .
