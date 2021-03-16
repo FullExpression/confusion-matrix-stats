@@ -42,10 +42,4 @@ jobs:
           git add package.json
           git commit -m "Update version"
           git push
-      - name: Generate documentation
-        run: npm run docs
-      - name: Publish documentation
-        uses: w9jds/firebase-action@master
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       
