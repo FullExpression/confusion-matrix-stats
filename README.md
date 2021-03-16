@@ -1,5 +1,7 @@
 # Confusion Matrix Statistics Calculations
 
+[![production-build](https://github.com/FullExpression/confusion-matrix-stats/actions/workflows/production-build.yml/badge.svg)](https://github.com/FullExpression/confusion-matrix-stats/actions/workflows/production-build.yml)
+
 As the name suggests, this library aims to facilitate the calculations of several **metrics** using a **multi-dimensional confusion matrix**.
 
 Provides a set of feature, not only to obtain matrix such as [accuracy](https://confusion-matrix-stats-doc.web.app/classes/confusionmatrix.html#accuracy), [precision](https://confusion-matrix-stats-doc.web.app/classes/confusionmatrix.html#precision) and [f1Score](https://confusion-matrix-stats-doc.web.app/classes/confusionmatrix.html#f1score), but also [matrix normalization](https://confusion-matrix-stats-doc.web.app/classes/confusionmatrix.html#normalize), [cloning](https://confusion-matrix-stats-doc.web.app/classes/confusionmatrix.html#clone), [numberOfPredictions](https://confusion-matrix-stats-doc.web.app/classes/confusionmatrix.html#getnumberofpredictions), etc.
