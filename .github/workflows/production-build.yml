@@ -29,12 +29,14 @@ jobs:
         run: | 
           git config --global user.email "ricardo1992rocha@gmail.com"
           git config --global user.name "Ricardo Rocha"
-      - name: Increase software version
-        run: npm version patch --no-git-tag-version
       - name: Build
         run: npm run build
       - name: Test
         run: npm run build-test
+      - name: Publish package
+        run: npm publish ./dist
+      - name: Increase software version
+        run: npm version patch --no-git-tag-version
       - name: Generate documentation
         run: npm run docs
       - name: Publish documentation
