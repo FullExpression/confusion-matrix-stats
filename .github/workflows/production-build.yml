@@ -37,9 +37,9 @@ jobs:
         run: npm run build-test
       - name: Publish package
         run: npm publish ./dist
-      - name: Commit new package version
+      - name: Add all resources to source control
         run: |
-          git add package.json
+          git add .
           git commit -m "Update version"
           git push
       

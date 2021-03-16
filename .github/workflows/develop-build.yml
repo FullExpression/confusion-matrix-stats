@@ -35,6 +35,13 @@ jobs:
         run: npm run build
       - name: Test
         run: npm run build-test
+      - name: Publish package
+        run: npm publish ./dist
+      - name: Add all resources to source control
+        run: |
+          git add .
+          git commit -m "Update version"
+          git push
       - name: Generate documentation
         run: npm run docs
       - name: Publish documentation
