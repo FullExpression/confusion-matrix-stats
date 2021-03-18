@@ -1144,6 +1144,12 @@ export class ConfusionMatrix {
             }
         });
     }
+    /**
+     * Change the rows for the columns and vice-versa.
+     */
+    transpose() {
+        this.matrix = this.matrix[0].map((col, i) => this.matrix.map(row => row[i]));
+    }
 
     /**
      * Deep copies a given object.
