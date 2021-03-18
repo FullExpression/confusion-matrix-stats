@@ -36,7 +36,7 @@ jobs:
       - name: Publish package
         run: npm publish ./dist
       - name: Increase software version
-        run: npm version prerelease --no-git-tag-version
+        run: npm version patch --no-git-tag-version
       - name: Add all resources to source control
         run: |
           git add .
@@ -46,6 +46,8 @@ jobs:
         run: npm run docs
       - name: Publish documentation
         uses: w9jds/firebase-action@master
+        with:
+          args: deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       
