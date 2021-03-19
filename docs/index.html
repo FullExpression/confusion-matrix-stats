@@ -1,0 +1,159 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@fullexpression/confusion-matrix-stats</title>
+	<meta name="description" content="Documentation for @fullexpression/confusion-matrix-stats">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@fullexpression/confusion-matrix-stats</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>@fullexpression/confusion-matrix-stats</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#confusion-matrix-statistics-calculations" id="confusion-matrix-statistics-calculations" style="color: inherit; text-decoration: none;">
+					<h1>Confusion Matrix Statistics Calculations</h1>
+				</a>
+				<p><a href="https://github.com/FullExpression/confusion-matrix-stats/actions/workflows/production-build.yml"><img src="https://github.com/FullExpression/confusion-matrix-stats/actions/workflows/production-build.yml/badge.svg" alt="production-build"></a></p>
+				<p>As the name suggests, this library aims to facilitate the calculations of several <strong>metrics</strong> using a <strong>multi-dimensional confusion matrix</strong>.</p>
+				<p>Provides a set of feature, not only to obtain matrix such as <a href="https://confusion-matrix-stats-doc.web.app/classes/confusionmatrix.html#accuracy">accuracy</a>, <a href="https://confusion-matrix-stats-doc.web.app/classes/confusionmatrix.html#precision">precision</a> and <a href="https://confusion-matrix-stats-doc.web.app/classes/confusionmatrix.html#f1score">f1Score</a>, but also <a href="https://confusion-matrix-stats-doc.web.app/classes/confusionmatrix.html#normalize">matrix normalization</a>, <a href="https://confusion-matrix-stats-doc.web.app/classes/confusionmatrix.html#clone">cloning</a>, <a href="https://confusion-matrix-stats-doc.web.app/classes/confusionmatrix.html#getnumberofpredictions">numberOfPredictions</a>, etc.</p>
+				<p><em>This library was inspired on <a href="https://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html">scikit-learn confusion-matrix</a> written for python. Our goal is to create the same concept for the javascript world.</em></p>
+				<a href="#🛠️-how-to-install" id="🛠️-how-to-install" style="color: inherit; text-decoration: none;">
+					<h2>🛠️ How to install</h2>
+				</a>
+				<p>Run the following command:</p>
+				<p><code>npm install confusion-matrix-stats</code></p>
+				<a href="#👩💻-how-to-use-it" id="👩💻-how-to-use-it" style="color: inherit; text-decoration: none;">
+					<h2>👩‍💻 How to use it</h2>
+				</a>
+				<p>You just need to create a new <code>Confusion Matrix</code> instance:</p>
+				<pre><code class="language-typescript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">confusionMatrix</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">ConfusionMatrix</span><span style="color: #000000">({</span>
+<span style="color: #000000">    </span><span style="color: #001080">labels:</span><span style="color: #000000"> [</span><span style="color: #A31515">&quot;Happiness&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;Sadness&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;Disgust&quot;</span><span style="color: #000000">], </span>
+<span style="color: #000000">    </span><span style="color: #001080">matrix:</span><span style="color: #000000"> [[</span><span style="color: #098658">50</span><span style="color: #000000">, </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">],</span>
+<span style="color: #000000">             [</span><span style="color: #098658">8</span><span style="color: #000000">, </span><span style="color: #098658">50</span><span style="color: #000000"> ,</span><span style="color: #098658">5</span><span style="color: #000000">],</span>
+<span style="color: #000000">             [</span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">5</span><span style="color: #000000"> ,</span><span style="color: #098658">50</span><span style="color: #000000">]]</span>
+<span style="color: #000000">});</span>
+</code></pre>
+				<p>And then, call the function to obtain the desired metric:</p>
+				<pre><code class="language-typescript"><span style="color: #008000">// Calculates the accuracy value for the all matrix.</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">accuracy</span><span style="color: #000000"> = </span><span style="color: #001080">confusionMatrix</span><span style="color: #000000">.</span><span style="color: #795E26">accuracy</span><span style="color: #000000">();</span>
+</code></pre>
+				<p>For each metric calculation, is possible to define a different configurations in order to fine tune the calculation formula:</p>
+				<pre><code class="language-typescript"><span style="color: #008000">// Calculates the f1Score, only for &quot;sadness&quot; class, using the Macro average method.</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">labelAccuracy</span><span style="color: #000000"> = </span><span style="color: #001080">confusionMatrix</span><span style="color: #000000">.</span><span style="color: #795E26">f1Score</span><span style="color: #000000">({ </span><span style="color: #001080">label:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;Sadness&quot;</span><span style="color: #000000">, </span><span style="color: #001080">average:</span><span style="color: #000000"> </span><span style="color: #001080">AverageMethod</span><span style="color: #000000">.</span><span style="color: #001080">Macro</span><span style="color: #000000">});</span>
+</code></pre>
+				<a href="#👩🏻🏫-examples" id="👩🏻🏫-examples" style="color: inherit; text-decoration: none;">
+					<h2>👩🏻‍🏫 Examples</h2>
+				</a>
+				<p>You have in <a href="https://github.com/FullExpression/confusion-matrix-stats-examples">here</a> examples for different languages/frameworks.</p>
+				<a href="#📚-documentation" id="📚-documentation" style="color: inherit; text-decoration: none;">
+					<h2>📚 Documentation</h2>
+				</a>
+				<p>You can the library documentation <a href="https://fullexpression.github.io/confusion-matrix-stats/docs/index.html">here</a>.</p>
+				<a href="#🤓-give-us-your-feedback" id="🤓-give-us-your-feedback" style="color: inherit; text-decoration: none;">
+					<h2>🤓 Give us your feedback</h2>
+				</a>
+				<p>Please, give us your feedback <a href="https://github.com/FullExpression/confusion-matrix-stats/issues">here</a>! Also, participate in this project using <a href="mailto:ricardo1992rocha@gmail.com">ricardo1992rocha@gmail.com</a> email contact.</p>
+				<p>Thank you!</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="enums/averagemethod.html" class="tsd-kind-icon">Average<wbr>Method</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/confusionmatrix.html" class="tsd-kind-icon">Confusion<wbr>Matrix</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/confusionmatrixclasses.html" class="tsd-kind-icon">Confusion<wbr>Matrix<wbr>Classes</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#fractiondigits" class="tsd-kind-icon">Fraction<wbr>Digits</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
