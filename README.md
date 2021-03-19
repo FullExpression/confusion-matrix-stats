@@ -1,7 +1,12 @@
 # Confusion Matrix Statistics Calculations
 
-[![production-build](https://github.com/FullExpression/confusion-matrix-stats/actions/workflows/production-build.yml/badge.svg)](https://github.com/FullExpression/confusion-matrix-stats/actions/workflows/production-build.yml)
+[![production-build](https://img.shields.io/github/license/FullExpression/confusion-matrix-stats)](https://github.com/FullExpression/confusion-matrix-stats/blob/main/LICENSE)
+[![production-build](https://img.shields.io/github/package-json/v/FullExpression/confusion-matrix-stats/main?label=npm%40production)](https://github.com/FullExpression/confusion-matrix-stats/packages/673241/versions)
+[![production-build](https://img.shields.io/github/package-json/v/FullExpression/confusion-matrix-stats/develop?label=npm%40production)](https://github.com/FullExpression/confusion-matrix-stats/packages/673241/versions)
 
+
+
+[![production-build](https://github.com/FullExpression/confusion-matrix-stats/actions/workflows/production-build.yml/badge.svg)](https://github.com/FullExpression/confusion-matrix-stats/actions/workflows/production-build.yml)
 ![Coverage Branches](https://raw.githubusercontent.com/FullExpression/confusion-matrix-stats/main/badges/badge-branches.svg)
 ![Coverage Branches](https://raw.githubusercontent.com/FullExpression/confusion-matrix-stats/main/badges/badge-functions.svg)
 ![Coverage Branches](https://raw.githubusercontent.com/FullExpression/confusion-matrix-stats/main/badges/badge-lines.svg)
