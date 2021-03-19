@@ -10,7 +10,7 @@
         "build-test": "jest",
         "docs": "typedoc --out website/docs src/index.ts",
         "postbuild": "gulp copyDistFiles",
-        "publish-web-site": "gulp publishWebSite"
+        "publish-web-site": "npm run build && npm run docs && gulp publishWebSite"
     },
     "repository": {
         "type": "git",
