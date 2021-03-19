@@ -15,9 +15,11 @@ describe("Confusion matrix model test suite", () => {
         const anotherConfusionMatrix = new ConfusionMatrix({
             labels, matrix
         });
-        confusionMatrix.setConfusionMatrix(anotherConfusionMatrix);
+        const returnedConfusionMatrix = confusionMatrix.setConfusionMatrix(anotherConfusionMatrix);
         expect(confusionMatrix.labels).toEqual(labels);
         expect(confusionMatrix.matrix).toEqual(matrix);
+        expect(returnedConfusionMatrix).toEqual(anotherConfusionMatrix);
+        expect(confusionMatrix).toEqual(anotherConfusionMatrix);
     });
 
     it("Should set/get labels and matrix", () => {
@@ -32,11 +34,12 @@ describe("Confusion matrix model test suite", () => {
 
     it("Should normalize a matrix", () => {
         let confusionMatrix = TestsHelper.getConfusionMatrix();
-        confusionMatrix.normalize(0, 1);
+        let returnedMatrix = confusionMatrix.normalize(0, 1);
         expect(confusionMatrix.matrix).toEqual([[0.7, 0.8, 1],
         [0.1, 0.2, 0.3],
         [0.3, 0.2, 0]]
         );
+        expect(returnedMatrix).toEqual(confusionMatrix);
 
         confusionMatrix = TestsHelper.getConfusionMatrix();
         confusionMatrix.normalize(1, 2);
@@ -44,6 +47,7 @@ describe("Confusion matrix model test suite", () => {
         [1.1, 1.2, 1.3],
         [1.3, 1.2, 1]]
         );
+        expect(returnedMatrix).not.toEqual(confusionMatrix);
 
         confusionMatrix = TestsHelper.getConfusionMatrix();
         confusionMatrix.normalize(-1, 0, 1);
@@ -91,14 +95,16 @@ describe("Confusion matrix model test suite", () => {
 
     it("Can revert all normalizations.", () => {
         const confusionMatrix = TestsHelper.getConfusionMatrix();
-        confusionMatrix.revertAllNormalizations();
+        let returnedConfusionMatrix = confusionMatrix.revertAllNormalizations();
         expect(confusionMatrix.matrix).toEqual(TestsHelper.getConfusionMatrix().matrix);
+        expect(returnedConfusionMatrix).toEqual(confusionMatrix);
         confusionMatrix.normalize(0, 1);
         confusionMatrix.normalize(1, 2);
         confusionMatrix.normalize(3, 4);
         confusionMatrix.normalize(-1, 6);
-        confusionMatrix.revertAllNormalizations();
+        returnedConfusionMatrix = confusionMatrix.revertAllNormalizations();
         expect(confusionMatrix.matrix).toEqual(TestsHelper.getConfusionMatrix().matrix);
+        expect(returnedConfusionMatrix).toEqual(confusionMatrix);
 
     });
 
@@ -129,6 +135,7 @@ describe("Confusion matrix model test suite", () => {
         expect(confusionMatrix.labels).toEqual(TestsHelper.getLabels());
         expect(confusionMatrix.matrix).toEqual(TestsHelper.getMatrix());
         expect(confusionMatrix.labels.length).toBe(TestsHelper.getMatrix().length);
+
     });
 
     it("Can get true classes.", () => {
@@ -165,6 +172,10 @@ describe("Confusion matrix model test suite", () => {
 
     it("Can validate the confusion matrix.", () => {
         let confusionMatrix = TestsHelper.getConfusionMatrix();
+
+        //Is valid, therefore, should return the confusion matrix object.
+        const returnedConfusionMatrix = confusionMatrix.validate();
+        expect(returnedConfusionMatrix).toEqual(confusionMatrix);
 
         confusionMatrix.labels = [];
         expect(() => confusionMatrix.validate()).toThrow(new Error('The labels length should be equals to the matrix columns length.'));
@@ -582,13 +593,14 @@ describe("Confusion matrix model test suite", () => {
             [13, 14, 15, 16]
         ];
         let confusionMatrix = new ConfusionMatrix({ labels, matrix });
-        confusionMatrix.transpose();
+        const returnedConfusionMatrix = confusionMatrix.transpose();
         expect(confusionMatrix.matrix).toEqual([
             [1, 5, 9, 13],
             [2, 6, 10, 14],
             [3, 7, 11, 15],
             [4, 8, 12, 16]
         ]);
+        expect(returnedConfusionMatrix).toEqual(confusionMatrix);
         confusionMatrix.transpose();
         expect(confusionMatrix.matrix).toEqual(matrix);
         labels = ["a"];
@@ -596,6 +608,7 @@ describe("Confusion matrix model test suite", () => {
         confusionMatrix = new ConfusionMatrix({ labels, matrix });
         confusionMatrix.transpose();
         expect(confusionMatrix.matrix).toEqual(matrix);
+        expect(returnedConfusionMatrix).not.toEqual(confusionMatrix);
     });
 
 });

@@ -50,13 +50,15 @@ export class ConfusionMatrix {
     /**
      * Sets the confusion matrix value based on another confusion matrix.
      * @param confusionMatrix The confusion matrix.
+     * @return The Confusion Matrix after changes (this).
      */
-    setConfusionMatrix(confusionMatrix: ConfusionMatrix) {
+    setConfusionMatrix(confusionMatrix: ConfusionMatrix): ConfusionMatrix {
         if (confusionMatrix) {
-            this.labels = this.deepCopy(confusionMatrix.labels);
-            this.matrix = this.deepCopy(confusionMatrix.matrix);
+            this.labels = this.deepCopy<Array<string>>(confusionMatrix.labels);
+            this.matrix = this.deepCopy<Array<Array<number>>>(confusionMatrix.matrix);
         }
         this.validate();
+        return this;
     }
 
     /**
@@ -70,8 +72,9 @@ export class ConfusionMatrix {
      * @param min Minimum value of the normalized range values [min, max].
      * @param max Maximum value of the normalized range values [min, max].
      * @param fractionDigits — Number of digits after the decimal point. Must be in the range 0 - 20, inclusive.
+     * @return The Confusion Matrix after changes (this).
      */
-    normalize(min: number = 0, max: number = 1, fractionDigits?: FractionDigits) {
+    normalize(min: number = 0, max: number = 1, fractionDigits?: FractionDigits): ConfusionMatrix {
         if (min >= max) {
             throw new Error('Min value cannot be equal or greater than max value.');
         }
@@ -93,7 +96,7 @@ export class ConfusionMatrix {
                 }
             }
         }
-
+        return this;
     }
 
     /**
@@ -906,7 +909,7 @@ export class ConfusionMatrix {
     *
     * @return The micro F1 Score value.
     */
-    microF1Score() {
+    microF1Score(): number {
         const precision = this.microPrecision();
         const recall = this.microRecall()
         return this.applyF1ScoreFormula(precision, recall);
@@ -1052,7 +1055,7 @@ export class ConfusionMatrix {
             labels: this.labels,
             matrix: this.matrix,
         });
-        cloneObj.normalizations = this.deepCopy(this.normalizations);
+        cloneObj.normalizations = this.deepCopy<Array<ConfusionMatrix>>(this.normalizations);
         return cloneObj;
     }
 
@@ -1079,11 +1082,13 @@ export class ConfusionMatrix {
 
     /**
      * Reverts all normalizations performed.
+     * @return The Confusion Matrix after changes (this).
      */
-    revertAllNormalizations() {
+    revertAllNormalizations(): ConfusionMatrix {
         if (this.normalizations && this.normalizations.length > 0) {
-            this.setConfusionMatrix(this.normalizations[0]);
+            return this.setConfusionMatrix(this.normalizations[0]);
         }
+        return this;
     }
 
     /**
@@ -1124,8 +1129,10 @@ export class ConfusionMatrix {
     /**
      * Validate if the confusion matrix is valid.
      * If not, an error describing the issue will be thrown.
+     * 
+     * @return The Confusion Matrix after changes (this).
      */
-    validate() {
+    validate(): ConfusionMatrix {
         if (this.labels.length !== this.matrix.length) {
             throw new Error('The labels length should be equals to the matrix columns length.');
         }
@@ -1143,12 +1150,15 @@ export class ConfusionMatrix {
                 throw new Error('The confusion matrix does not have the columns/rows length.');
             }
         });
+        return this;
     }
     /**
      * Change the rows for the columns and vice-versa.
+     * @return The Confusion Matrix after changes (this).
      */
-    transpose() {
+    transpose(): ConfusionMatrix {
         this.matrix = this.matrix[0].map((col, i) => this.matrix.map(row => row[i]));
+        return this;
     }
 
     /**
@@ -1156,7 +1166,7 @@ export class ConfusionMatrix {
      * @param object The object to be deep cloned.
      * @return The deep cloned object.
      */
-    private deepCopy(object: any): any {
+    private deepCopy<T>(object: T): T {
         return JSON.parse(JSON.stringify(object));
     }
 
