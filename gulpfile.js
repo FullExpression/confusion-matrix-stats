@@ -6,13 +6,19 @@ exports.copyDistFiles = () => {
     .pipe(gulp.dest('./dist'));
 }
 
-exports.publishWebSite = (callback) => {
-    ghpages.publish('website', (err) => {
-        if (error) {
-            console.error(err);
-        }
-        callback();
-    });
+exports.publishWebSite = () => {
+    return new Promise((resolve, reject) => {
+        ghpages.publish('website', (error) => {
+            if (error) {
+                reject(error)
+            } else {
+                console.info('Published Successfully!');
+            }
+        
+            resolve();
+        });
+    })
+    
 }
     
  
