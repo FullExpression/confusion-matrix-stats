@@ -1,9 +1,0 @@
-# Dependecy directory
-node_modules
-
-# Generated Files
-lib
-dist
-docs
-
-.npmrc
