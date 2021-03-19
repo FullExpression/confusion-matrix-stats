@@ -47,7 +47,7 @@ You have in [here](https://github.com/FullExpression/confusion-matrix-stats-exam
 
 ## 📚 Documentation
 
-You can the library documentation [here](https://confusion-matrix-stats-doc.web.app/classes/confusionmatrix.html).
+You can the library documentation [here](https://fullexpression.github.io/confusion-matrix-stats/docs/index.html).
 
 ## 🤓 Give us your feedback
 
