@@ -10,7 +10,9 @@
         "build-test": "jest",
         "docs": "typedoc --out website/docs src/index.ts",
         "postbuild": "gulp copyDistFiles",
-        "publish-web-site": "npm run build && npm run docs && gulp publishWebSite"
+        "publish-web-site": "npm run build && npm run docs && gulp publishWebSite",
+        "test:coverage": "jest --coverage",
+        "test:badges": "npm run test:coverage  && jest-coverage-badges --input coverage/coverage-summary.json --output badges"
     },
     "repository": {
         "type": "git",
@@ -27,6 +29,7 @@
         "gh-pages": "^3.1.0",
         "gulp": "^4.0.2",
         "jest": "^26.6.3",
+        "jest-coverage-badges": "^1.1.2",
         "ts-jest": "^26.5.3",
         "ts-loader": "^8.0.18",
         "typedoc": "^0.20.32",
