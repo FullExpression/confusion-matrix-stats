@@ -41,5 +41,4 @@ jobs:
         run: |
           git add .
           git commit -m "Update version"
-          git publish-web-site
       
