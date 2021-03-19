@@ -8,7 +8,7 @@
         "build": "./node_modules/.bin/tsc && webpack",
         "test": "jest --watch",
         "build-test": "jest",
-        "docs": "typedoc --out docs src/index.ts",
+        "docs": "typedoc --out website/docs src/index.ts",
         "postbuild": "gulp copyDistFiles"
     },
     "repository": {
