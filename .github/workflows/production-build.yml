@@ -33,6 +33,8 @@ jobs:
         run: npm run build
       - name: Test
         run: npm run build-test
+      - name: Generate badges
+        run: npm run test:badges
       - name: Publish package
         run: npm publish ./dist
       - name: Increase software version
@@ -44,6 +46,6 @@ jobs:
           git push
       - name: Generate documentation
         run: npm run docs
-      - name: Publish Website
+      - name: publish-web-site
         run: npm run docs
       
