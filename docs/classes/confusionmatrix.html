@@ -101,6 +101,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="confusionmatrix.html#history" class="tsd-kind-icon">history</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="confusionmatrix.html#historypointer" class="tsd-kind-icon">history<wbr>Pointer</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="confusionmatrix.html#labels" class="tsd-kind-icon">labels</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="confusionmatrix.html#matrix" class="tsd-kind-icon">matrix</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="confusionmatrix.html#normalizations" class="tsd-kind-icon">normalizations</a></li>
@@ -110,6 +112,7 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#accuracy" class="tsd-kind-icon">accuracy</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="confusionmatrix.html#addtohistory" class="tsd-kind-icon">add<wbr>ToHistory</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="confusionmatrix.html#applyf1scoreformula" class="tsd-kind-icon">apply<wbr>F1Score<wbr>Formula</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#clone" class="tsd-kind-icon">clone</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-private"><a href="confusionmatrix.html#deepcopy" class="tsd-kind-icon">deep<wbr>Copy</a></li>
@@ -120,6 +123,8 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#getminandmax" class="tsd-kind-icon">get<wbr>Min<wbr>And<wbr>Max</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#getnumberofpredictions" class="tsd-kind-icon">get<wbr>Number<wbr>OfPredictions</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#getsumconfusionmatrixclasses" class="tsd-kind-icon">get<wbr>Sum<wbr>Confusion<wbr>Matrix<wbr>Classes</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#isredoavailable" class="tsd-kind-icon">is<wbr>Redo<wbr>Available</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#isundoavailable" class="tsd-kind-icon">is<wbr>Undo<wbr>Available</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#labelaccuracy" class="tsd-kind-icon">label<wbr>Accuracy</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#labelf1score" class="tsd-kind-icon">label<wbr>F1Score</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#labelmissclassificationrate" class="tsd-kind-icon">label<wbr>Miss<wbr>Classification<wbr>Rate</a></li>
@@ -148,11 +153,13 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#normalize" class="tsd-kind-icon">normalize</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#precision" class="tsd-kind-icon">precision</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#recall" class="tsd-kind-icon">recall</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#redo" class="tsd-kind-icon">redo</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#revertallnormalizations" class="tsd-kind-icon">revert<wbr>All<wbr>Normalizations</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#revertnormalization" class="tsd-kind-icon">revert<wbr>Normalization</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#setconfusionmatrix" class="tsd-kind-icon">set<wbr>Confusion<wbr>Matrix</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#specificity" class="tsd-kind-icon">specificity</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#transpose" class="tsd-kind-icon">transpose</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#undo" class="tsd-kind-icon">undo</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#validate" class="tsd-kind-icon">validate</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#weightedaccuracy" class="tsd-kind-icon">weighted<wbr>Accuracy</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="confusionmatrix.html#weightedf1score" class="tsd-kind-icon">weighted<wbr>F1Score</a></li>
@@ -177,7 +184,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L25">confusion-matrix.models.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L29">confusion-matrix.models.ts:29</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -239,6 +246,38 @@ const confusionMatrix = new ConfusionMatrix({
     </section>
                 <section class="tsd-panel-group tsd-member-group ">
         <h2>Properties</h2>
+                <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+    <a name="history" class="tsd-anchor"></a>
+        <h3><span class="tsd-flag ts-flagPrivate">Private</span> history</h3>
+
+        <div class="tsd-signature tsd-kind-icon">history<span class="tsd-signature-symbol">:</span> <a href="confusionmatrix.html" class="tsd-signature-type" data-tsd-kind="Class">ConfusionMatrix</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = ...</span></div>
+
+<aside class="tsd-sources">
+        <ul>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L27">confusion-matrix.models.ts:27</a></li>
+        </ul>
+</aside>
+
+
+    
+
+</section>
+                <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+    <a name="historypointer" class="tsd-anchor"></a>
+        <h3><span class="tsd-flag ts-flagPrivate">Private</span> history<wbr>Pointer</h3>
+
+        <div class="tsd-signature tsd-kind-icon">history<wbr>Pointer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = -1</span></div>
+
+<aside class="tsd-sources">
+        <ul>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L29">confusion-matrix.models.ts:29</a></li>
+        </ul>
+</aside>
+
+
+    
+
+</section>
                 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
     <a name="labels" class="tsd-anchor"></a>
         <h3>labels</h3>
@@ -247,7 +286,7 @@ const confusionMatrix = new ConfusionMatrix({
 
 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L15">confusion-matrix.models.ts:15</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L15">confusion-matrix.models.ts:15</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -269,7 +308,7 @@ const confusionMatrix = new ConfusionMatrix({
 
 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L22">confusion-matrix.models.ts:22</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L22">confusion-matrix.models.ts:22</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -293,7 +332,7 @@ const confusionMatrix = new ConfusionMatrix({
 
 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L25">confusion-matrix.models.ts:25</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L25">confusion-matrix.models.ts:25</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -322,7 +361,7 @@ const confusionMatrix = new ConfusionMatrix({
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L129">confusion-matrix.models.ts:129</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L136">confusion-matrix.models.ts:136</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -389,6 +428,32 @@ predictions.</p>
 
 </section>
                 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+    <a name="addtohistory" class="tsd-anchor"></a>
+        <h3><span class="tsd-flag ts-flagPrivate">Private</span> add<wbr>ToHistory</h3>
+
+        <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+        <li class="tsd-signature tsd-kind-icon">add<wbr>ToHistory<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+</ul>
+
+<ul class="tsd-descriptions">
+        <li class="tsd-description">
+                <aside class="tsd-sources">
+        <ul>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L1214">confusion-matrix.models.ts:1214</a></li>
+        </ul>
+</aside>
+
+
+
+    <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+
+
+        </li>
+</ul>
+    
+
+</section>
+                <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
     <a name="applyf1scoreformula" class="tsd-anchor"></a>
         <h3><span class="tsd-flag ts-flagPrivate">Private</span> apply<wbr>F1Score<wbr>Formula</h3>
 
@@ -400,7 +465,7 @@ predictions.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L1178">confusion-matrix.models.ts:1178</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L1210">confusion-matrix.models.ts:1210</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -453,7 +518,7 @@ predictions.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L1053">confusion-matrix.models.ts:1053</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L1059">confusion-matrix.models.ts:1059</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -487,7 +552,7 @@ predictions.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L1169">confusion-matrix.models.ts:1169</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L1201">confusion-matrix.models.ts:1201</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -539,7 +604,7 @@ predictions.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L841">confusion-matrix.models.ts:841</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L848">confusion-matrix.models.ts:848</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -616,7 +681,7 @@ with more predictions will weight more in the final value comparing with labels 
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L965">confusion-matrix.models.ts:965</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L972">confusion-matrix.models.ts:972</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -658,7 +723,7 @@ false positives and false negatives, as well as the label associated with it.</p
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L1006">confusion-matrix.models.ts:1006</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L1013">confusion-matrix.models.ts:1013</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -708,7 +773,7 @@ false positives and false negatives).</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L1119">confusion-matrix.models.ts:1119</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L1125">confusion-matrix.models.ts:1125</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -744,7 +809,7 @@ on the confusion matrix.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L1066">confusion-matrix.models.ts:1066</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L1072">confusion-matrix.models.ts:1072</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -778,7 +843,7 @@ on the confusion matrix.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L1101">confusion-matrix.models.ts:1101</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L1107">confusion-matrix.models.ts:1107</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -825,7 +890,7 @@ for all confusion matrix.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L979">confusion-matrix.models.ts:979</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L986">confusion-matrix.models.ts:986</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -848,6 +913,58 @@ for all confusion matrix.</p>
 
 </section>
                 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+    <a name="isredoavailable" class="tsd-anchor"></a>
+        <h3>is<wbr>Redo<wbr>Available</h3>
+
+        <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+        <li class="tsd-signature tsd-kind-icon">is<wbr>Redo<wbr>Available<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+</ul>
+
+<ul class="tsd-descriptions">
+        <li class="tsd-description">
+                <aside class="tsd-sources">
+        <ul>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L1184">confusion-matrix.models.ts:1184</a></li>
+        </ul>
+</aside>
+
+
+
+    <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+
+
+        </li>
+</ul>
+    
+
+</section>
+                <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+    <a name="isundoavailable" class="tsd-anchor"></a>
+        <h3>is<wbr>Undo<wbr>Available</h3>
+
+        <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+        <li class="tsd-signature tsd-kind-icon">is<wbr>Undo<wbr>Available<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+</ul>
+
+<ul class="tsd-descriptions">
+        <li class="tsd-description">
+                <aside class="tsd-sources">
+        <ul>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L1171">confusion-matrix.models.ts:1171</a></li>
+        </ul>
+</aside>
+
+
+
+    <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+
+
+        </li>
+</ul>
+    
+
+</section>
+                <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
     <a name="labelaccuracy" class="tsd-anchor"></a>
         <h3>label<wbr>Accuracy</h3>
 
@@ -859,7 +976,7 @@ for all confusion matrix.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L153">confusion-matrix.models.ts:153</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L160">confusion-matrix.models.ts:160</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -909,7 +1026,7 @@ for all confusion matrix.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L894">confusion-matrix.models.ts:894</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L901">confusion-matrix.models.ts:901</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -959,7 +1076,7 @@ for all confusion matrix.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L293">confusion-matrix.models.ts:293</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L300">confusion-matrix.models.ts:300</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1010,7 +1127,7 @@ calculates the faction of predictions were incorrect.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L435">confusion-matrix.models.ts:435</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L442">confusion-matrix.models.ts:442</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1060,7 +1177,7 @@ calculates the faction of predictions were incorrect.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L576">confusion-matrix.models.ts:576</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L583">confusion-matrix.models.ts:583</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1111,7 +1228,7 @@ gives what fraction of all positives classes correctly predicted as positive.</p
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L808">confusion-matrix.models.ts:808</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L815">confusion-matrix.models.ts:815</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1162,7 +1279,7 @@ gives what fraction of all negatives samples are correctly as negative.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L216">confusion-matrix.models.ts:216</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L223">confusion-matrix.models.ts:223</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1200,7 +1317,7 @@ the number of labels.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L928">confusion-matrix.models.ts:928</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L935">confusion-matrix.models.ts:935</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1238,7 +1355,7 @@ the number of labels.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L359">confusion-matrix.models.ts:359</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L366">confusion-matrix.models.ts:366</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1277,7 +1394,7 @@ the number of labels.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L498">confusion-matrix.models.ts:498</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L505">confusion-matrix.models.ts:505</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1315,7 +1432,7 @@ the number of labels.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L642">confusion-matrix.models.ts:642</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L649">confusion-matrix.models.ts:649</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1354,7 +1471,7 @@ the number of labels.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L767">confusion-matrix.models.ts:767</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L774">confusion-matrix.models.ts:774</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1393,7 +1510,7 @@ the number of labels.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L181">confusion-matrix.models.ts:181</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L188">confusion-matrix.models.ts:188</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1450,7 +1567,7 @@ predictions.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L873">confusion-matrix.models.ts:873</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L880">confusion-matrix.models.ts:880</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1507,7 +1624,7 @@ predictions.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L322">confusion-matrix.models.ts:322</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L329">confusion-matrix.models.ts:329</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1565,7 +1682,7 @@ predictions.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L463">confusion-matrix.models.ts:463</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L470">confusion-matrix.models.ts:470</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1622,7 +1739,7 @@ predictions.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L605">confusion-matrix.models.ts:605</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L612">confusion-matrix.models.ts:612</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1680,7 +1797,7 @@ predictions.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L730">confusion-matrix.models.ts:730</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L737">confusion-matrix.models.ts:737</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1738,7 +1855,7 @@ predictions.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L200">confusion-matrix.models.ts:200</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L207">confusion-matrix.models.ts:207</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1776,7 +1893,7 @@ the number of labels.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L912">confusion-matrix.models.ts:912</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L919">confusion-matrix.models.ts:919</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1814,7 +1931,7 @@ the number of labels.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L342">confusion-matrix.models.ts:342</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L349">confusion-matrix.models.ts:349</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1853,7 +1970,7 @@ the number of labels.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L482">confusion-matrix.models.ts:482</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L489">confusion-matrix.models.ts:489</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1891,7 +2008,7 @@ the number of labels.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L625">confusion-matrix.models.ts:625</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L632">confusion-matrix.models.ts:632</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1930,7 +2047,7 @@ the number of labels.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L750">confusion-matrix.models.ts:750</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L757">confusion-matrix.models.ts:757</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -1969,7 +2086,7 @@ the number of labels.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L269">confusion-matrix.models.ts:269</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L276">confusion-matrix.models.ts:276</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -2047,7 +2164,7 @@ with more predictions will weight more in the final rate value comparing with la
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L77">confusion-matrix.models.ts:77</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L84">confusion-matrix.models.ts:84</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -2119,7 +2236,7 @@ by calling the function @see <a href="confusionmatrix.html#revertnormalization">
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L412">confusion-matrix.models.ts:412</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L419">confusion-matrix.models.ts:419</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -2196,7 +2313,7 @@ with more predictions will weight more in the final value comparing with labels 
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L552">confusion-matrix.models.ts:552</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L559">confusion-matrix.models.ts:559</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -2263,6 +2380,32 @@ with more predictions will weight more in the final value comparing with labels 
 
 </section>
                 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+    <a name="redo" class="tsd-anchor"></a>
+        <h3>redo</h3>
+
+        <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+        <li class="tsd-signature tsd-kind-icon">redo<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="confusionmatrix.html" class="tsd-signature-type" data-tsd-kind="Class">ConfusionMatrix</a></li>
+</ul>
+
+<ul class="tsd-descriptions">
+        <li class="tsd-description">
+                <aside class="tsd-sources">
+        <ul>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L1188">confusion-matrix.models.ts:1188</a></li>
+        </ul>
+</aside>
+
+
+
+    <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="confusionmatrix.html" class="tsd-signature-type" data-tsd-kind="Class">ConfusionMatrix</a></h4>
+
+
+        </li>
+</ul>
+    
+
+</section>
+                <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
     <a name="revertallnormalizations" class="tsd-anchor"></a>
         <h3>revert<wbr>All<wbr>Normalizations</h3>
 
@@ -2274,7 +2417,7 @@ with more predictions will weight more in the final value comparing with labels 
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L1087">confusion-matrix.models.ts:1087</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L1093">confusion-matrix.models.ts:1093</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -2308,7 +2451,7 @@ with more predictions will weight more in the final value comparing with labels 
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L1038">confusion-matrix.models.ts:1038</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L1045">confusion-matrix.models.ts:1045</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -2336,14 +2479,14 @@ If there is not any entry on the history, null will be returned.</p>
         <h3>set<wbr>Confusion<wbr>Matrix</h3>
 
         <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-        <li class="tsd-signature tsd-kind-icon">set<wbr>Confusion<wbr>Matrix<span class="tsd-signature-symbol">(</span>confusionMatrix<span class="tsd-signature-symbol">: </span><a href="confusionmatrix.html" class="tsd-signature-type" data-tsd-kind="Class">ConfusionMatrix</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="confusionmatrix.html" class="tsd-signature-type" data-tsd-kind="Class">ConfusionMatrix</a></li>
+        <li class="tsd-signature tsd-kind-icon">set<wbr>Confusion<wbr>Matrix<span class="tsd-signature-symbol">(</span>confusionMatrix<span class="tsd-signature-symbol">: </span><a href="confusionmatrix.html" class="tsd-signature-type" data-tsd-kind="Class">ConfusionMatrix</a>, saveInHistory<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="confusionmatrix.html" class="tsd-signature-type" data-tsd-kind="Class">ConfusionMatrix</a></li>
 </ul>
 
 <ul class="tsd-descriptions">
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L55">confusion-matrix.models.ts:55</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L58">confusion-matrix.models.ts:58</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -2361,6 +2504,15 @@ If there is not any entry on the history, null will be returned.</p>
 
                         <div class="tsd-comment tsd-typography">
                 <p>The confusion matrix.</p>
+
+        </div>
+
+            </li>
+            <li>
+                <h5>saveInHistory: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = true</span></h5>
+
+                        <div class="tsd-comment tsd-typography">
+                <p>Saves this change in confusion matrix history.</p>
 
         </div>
 
@@ -2389,7 +2541,7 @@ If there is not any entry on the history, null will be returned.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L697">confusion-matrix.models.ts:697</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L704">confusion-matrix.models.ts:704</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -2467,7 +2619,7 @@ with more predictions will weight more in the final value comparing with labels 
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L1159">confusion-matrix.models.ts:1159</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L1165">confusion-matrix.models.ts:1165</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -2490,6 +2642,32 @@ with more predictions will weight more in the final value comparing with labels 
 
 </section>
                 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+    <a name="undo" class="tsd-anchor"></a>
+        <h3>undo</h3>
+
+        <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+        <li class="tsd-signature tsd-kind-icon">undo<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="confusionmatrix.html" class="tsd-signature-type" data-tsd-kind="Class">ConfusionMatrix</a></li>
+</ul>
+
+<ul class="tsd-descriptions">
+        <li class="tsd-description">
+                <aside class="tsd-sources">
+        <ul>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L1175">confusion-matrix.models.ts:1175</a></li>
+        </ul>
+</aside>
+
+
+
+    <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="confusionmatrix.html" class="tsd-signature-type" data-tsd-kind="Class">ConfusionMatrix</a></h4>
+
+
+        </li>
+</ul>
+    
+
+</section>
+                <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
     <a name="validate" class="tsd-anchor"></a>
         <h3>validate</h3>
 
@@ -2501,7 +2679,7 @@ with more predictions will weight more in the final value comparing with labels 
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L1135">confusion-matrix.models.ts:1135</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L1141">confusion-matrix.models.ts:1141</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -2536,7 +2714,7 @@ If not, an error describing the issue will be thrown.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L233">confusion-matrix.models.ts:233</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L240">confusion-matrix.models.ts:240</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -2574,7 +2752,7 @@ in the final accuracy value comparing with labels with less predictions.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L945">confusion-matrix.models.ts:945</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L952">confusion-matrix.models.ts:952</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -2612,7 +2790,7 @@ in the final F1 Score value comparing with labels with less predictions.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L377">confusion-matrix.models.ts:377</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L384">confusion-matrix.models.ts:384</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -2651,7 +2829,7 @@ in the final miss classification value comparing with labels with less predictio
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L515">confusion-matrix.models.ts:515</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L522">confusion-matrix.models.ts:522</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -2689,7 +2867,7 @@ in the final precision value comparing with labels with less predictions.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L660">confusion-matrix.models.ts:660</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L667">confusion-matrix.models.ts:667</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -2728,7 +2906,7 @@ in the final recall value comparing with labels with less predictions.</p>
         <li class="tsd-description">
                 <aside class="tsd-sources">
         <ul>
-                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/1b6c429/src/confusion-matrix.models.ts#L785">confusion-matrix.models.ts:785</a></li>
+                    <li>Defined in <a href="https://github.com/FullExpression/confusion-matrix-stats/blob/6b8c551/src/confusion-matrix.models.ts#L792">confusion-matrix.models.ts:792</a></li>
         </ul>
 </aside>
         <div class="tsd-comment tsd-typography">
@@ -2780,6 +2958,12 @@ in the final specificity value comparing with labels with less predictions.</p>
                 <li class=" tsd-kind-constructor tsd-parent-kind-class">
     <a href="confusionmatrix.html#constructor" class="tsd-kind-icon">constructor</a>
 </li>
+                <li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+    <a href="confusionmatrix.html#history" class="tsd-kind-icon">history</a>
+</li>
+                <li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+    <a href="confusionmatrix.html#historypointer" class="tsd-kind-icon">history<wbr>Pointer</a>
+</li>
                 <li class=" tsd-kind-property tsd-parent-kind-class">
     <a href="confusionmatrix.html#labels" class="tsd-kind-icon">labels</a>
 </li>
@@ -2791,6 +2975,9 @@ in the final specificity value comparing with labels with less predictions.</p>
 </li>
                 <li class=" tsd-kind-method tsd-parent-kind-class">
     <a href="confusionmatrix.html#accuracy" class="tsd-kind-icon">accuracy</a>
+</li>
+                <li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+    <a href="confusionmatrix.html#addtohistory" class="tsd-kind-icon">add<wbr>ToHistory</a>
 </li>
                 <li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
     <a href="confusionmatrix.html#applyf1scoreformula" class="tsd-kind-icon">apply<wbr>F1Score<wbr>Formula</a>
@@ -2821,6 +3008,12 @@ in the final specificity value comparing with labels with less predictions.</p>
 </li>
                 <li class=" tsd-kind-method tsd-parent-kind-class">
     <a href="confusionmatrix.html#getsumconfusionmatrixclasses" class="tsd-kind-icon">get<wbr>Sum<wbr>Confusion<wbr>Matrix<wbr>Classes</a>
+</li>
+                <li class=" tsd-kind-method tsd-parent-kind-class">
+    <a href="confusionmatrix.html#isredoavailable" class="tsd-kind-icon">is<wbr>Redo<wbr>Available</a>
+</li>
+                <li class=" tsd-kind-method tsd-parent-kind-class">
+    <a href="confusionmatrix.html#isundoavailable" class="tsd-kind-icon">is<wbr>Undo<wbr>Available</a>
 </li>
                 <li class=" tsd-kind-method tsd-parent-kind-class">
     <a href="confusionmatrix.html#labelaccuracy" class="tsd-kind-icon">label<wbr>Accuracy</a>
@@ -2907,6 +3100,9 @@ in the final specificity value comparing with labels with less predictions.</p>
     <a href="confusionmatrix.html#recall" class="tsd-kind-icon">recall</a>
 </li>
                 <li class=" tsd-kind-method tsd-parent-kind-class">
+    <a href="confusionmatrix.html#redo" class="tsd-kind-icon">redo</a>
+</li>
+                <li class=" tsd-kind-method tsd-parent-kind-class">
     <a href="confusionmatrix.html#revertallnormalizations" class="tsd-kind-icon">revert<wbr>All<wbr>Normalizations</a>
 </li>
                 <li class=" tsd-kind-method tsd-parent-kind-class">
@@ -2920,6 +3116,9 @@ in the final specificity value comparing with labels with less predictions.</p>
 </li>
                 <li class=" tsd-kind-method tsd-parent-kind-class">
     <a href="confusionmatrix.html#transpose" class="tsd-kind-icon">transpose</a>
+</li>
+                <li class=" tsd-kind-method tsd-parent-kind-class">
+    <a href="confusionmatrix.html#undo" class="tsd-kind-icon">undo</a>
 </li>
                 <li class=" tsd-kind-method tsd-parent-kind-class">
     <a href="confusionmatrix.html#validate" class="tsd-kind-icon">validate</a>
