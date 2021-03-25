@@ -2,8 +2,10 @@ const gulp = require('gulp');
 const ghpages = require('gh-pages');
 
 exports.copyDistFiles = () => {
-      return gulp.src('package.json')
-    .pipe(gulp.dest('./dist'));
+    return gulp.src([
+        'package.json',
+        'README.md'
+    ]).pipe(gulp.dest('./dist'));
 }
 
 exports.publishWebSite = () => {
@@ -14,11 +16,9 @@ exports.publishWebSite = () => {
             } else {
                 console.info('Published Successfully!');
             }
-        
             resolve();
         });
-    })
-    
+    });
 }
     
  

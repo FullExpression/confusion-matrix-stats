@@ -24,7 +24,9 @@ export class ConfusionMatrix {
     /** Normalization history values. */
     private normalizations = new Array<ConfusionMatrix>();
 
+    private history = new Array<ConfusionMatrix>();
 
+    private historyPointer = -1;
     /**
      * Creates new instance of confusion matrix.
      * 
@@ -50,12 +52,17 @@ export class ConfusionMatrix {
     /**
      * Sets the confusion matrix value based on another confusion matrix.
      * @param confusionMatrix The confusion matrix.
+     * @param saveInHistory Saves this change in confusion matrix history.
      * @return The Confusion Matrix after changes (this).
      */
-    setConfusionMatrix(confusionMatrix: ConfusionMatrix): ConfusionMatrix {
+    setConfusionMatrix(confusionMatrix: ConfusionMatrix, saveInHistory = true): ConfusionMatrix {
         if (confusionMatrix) {
             this.labels = this.deepCopy<Array<string>>(confusionMatrix.labels);
             this.matrix = this.deepCopy<Array<Array<number>>>(confusionMatrix.matrix);
+            if (saveInHistory) {
+                this.addToHistory();
+            }
+
         }
         this.validate();
         return this;
@@ -92,9 +99,9 @@ export class ConfusionMatrix {
                     if (fractionDigits != undefined) {
                         this.matrix[i][j] = +this.matrix[i][j].toFixed(fractionDigits);
                     }
-
                 }
             }
+            this.addToHistory()
         }
         return this;
     }
@@ -131,10 +138,10 @@ export class ConfusionMatrix {
         average?: AverageMethod
     } = { average: AverageMethod.Weighted }): number {
         this.validate();
-        if (configuration?.label && configuration?.label.length > 0) {
+        if (configuration.label && configuration.label.length > 0) {
             return this.labelAccuracy(configuration.label);
         }
-        return this.matrixAccuracy(configuration?.average);
+        return this.matrixAccuracy(configuration.average);
 
     }
 
@@ -1036,12 +1043,11 @@ export class ConfusionMatrix {
      * If there is not any entry on the history, null will be returned.
      */
     revertNormalization(): ConfusionMatrix | null {
-        if (this.normalizations.length > 0) {
-            const cm = this.normalizations.pop();
-            if (cm) {
-                this.setConfusionMatrix(cm);
-                return cm;
-            }
+        const cm = this.normalizations.pop();
+        if (cm) {
+            this.setConfusionMatrix(cm);
+            this.addToHistory()
+            return cm;
         }
         return null;
     }
@@ -1158,7 +1164,33 @@ export class ConfusionMatrix {
      */
     transpose(): ConfusionMatrix {
         this.matrix = this.matrix[0].map((col, i) => this.matrix.map(row => row[i]));
+        this.addToHistory();
         return this;
+    }
+
+    isUndoAvailable(): boolean {
+        return !(this.historyPointer === -1);
+    }
+
+    undo(): ConfusionMatrix | undefined {
+        if (this.isUndoAvailable()) {
+            this.historyPointer--;
+            this.setConfusionMatrix(this.history[this.historyPointer], false);
+            return this;
+        }
+        return undefined;
+    }
+
+    isRedoAvailable(): boolean {
+        return !(this.historyPointer === this.history.length - 1);
+    }
+
+    redo(): ConfusionMatrix | undefined {
+        if (this.isRedoAvailable()) {
+            this.historyPointer++;
+            this.setConfusionMatrix(this.history[this.historyPointer], false);
+            return this;
+        }
     }
 
     /**
@@ -1176,7 +1208,16 @@ export class ConfusionMatrix {
      * @param recall The recall value.
      */
     private applyF1ScoreFormula(precision: number, recall: number): number {
-        return 2 * ((precision * recall) / (precision + recall));
+        return 2 * ((precision * recall) / (precision + recall)) || 0;
+    }
+
+    private addToHistory() {
+        this.history.push(this.clone());
+        if (this.historyPointer === -1) {
+            this.historyPointer = 0;
+        } else {
+            this.historyPointer++;
+        }
     }
 
 }

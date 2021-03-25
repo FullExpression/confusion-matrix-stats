@@ -15,7 +15,7 @@ describe("Confusion matrix model test suite", () => {
         const anotherConfusionMatrix = new ConfusionMatrix({
             labels, matrix
         });
-        const returnedConfusionMatrix = confusionMatrix.setConfusionMatrix(anotherConfusionMatrix);
+        const returnedConfusionMatrix = confusionMatrix.setConfusionMatrix(anotherConfusionMatrix, false);
         expect(confusionMatrix.labels).toEqual(labels);
         expect(confusionMatrix.matrix).toEqual(matrix);
         expect(returnedConfusionMatrix).toEqual(anotherConfusionMatrix);
@@ -34,7 +34,7 @@ describe("Confusion matrix model test suite", () => {
 
     it("Should normalize a matrix", () => {
         let confusionMatrix = TestsHelper.getConfusionMatrix();
-        let returnedMatrix = confusionMatrix.normalize(0, 1);
+        let returnedMatrix = confusionMatrix.normalize();
         expect(confusionMatrix.matrix).toEqual([[0.7, 0.8, 1],
         [0.1, 0.2, 0.3],
         [0.3, 0.2, 0]]
@@ -209,7 +209,7 @@ describe("Confusion matrix model test suite", () => {
 
 
     it("Can calculate the matrix accuracy", () => {
-        const confusionMatrix = TestsHelper.getConfusionMatrix();
+        let confusionMatrix = TestsHelper.getConfusionMatrix();
         const configuration = {
             label: 'Apple'
         };
@@ -236,6 +236,9 @@ describe("Confusion matrix model test suite", () => {
 
         // Test Mango accuracy.
         configuration.label = 'Mango';
+        value = confusionMatrix.accuracy(configuration);
+        expect(value).toBe((expectedMangoAccuracyValue));
+
         value = confusionMatrix.accuracy(configuration);
         expect(value).toBe((expectedMangoAccuracyValue));
 
@@ -271,10 +274,33 @@ describe("Confusion matrix model test suite", () => {
 
         value = confusionMatrix.accuracy();
         expect(value).toBe(expectedWeightMatrixAccuracyValue);
+
+        // Test NAN on label accuracy
+        confusionMatrix.matrix = [[0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]];
+        value = confusionMatrix.accuracy();
+        expect(value).toBe(0);
+
+        // Test NAN on micro accuracy
+        value = confusionMatrix.microAccuracy();
+        expect(value).toBe(0);
+
+        // Test NAN on macro accuracy
+        value = confusionMatrix.macroAccuracy();
+        expect(value).toBe(0);
+
+        // Test empty matrix accuracy average
+        confusionMatrix = TestsHelper.getConfusionMatrix();
+        value = confusionMatrix.matrixAccuracy();
+        expect(value).toBe(expectedWeightMatrixAccuracyValue);
+
+
+
     });
 
     it("Can calculate the matrix miss classification rate", () => {
-        const confusionMatrix = TestsHelper.getConfusionMatrix();
+        let confusionMatrix = TestsHelper.getConfusionMatrix();
         const configuration = {
             label: 'Apple'
         };
@@ -337,10 +363,30 @@ describe("Confusion matrix model test suite", () => {
 
         value = confusionMatrix.missClassificationRate();
         expect(value).toBe(expectedWeightMatrixRateValue);
+
+        // Test NAN on label miss classification value.
+        confusionMatrix.matrix = [[0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]];
+        value = confusionMatrix.missClassificationRate();
+        expect(value).toBe(0);
+
+        // Test NAN on micro miss classification value.
+        value = confusionMatrix.microMissClassificationRate();
+        expect(value).toBe(0);
+
+        // Test NAN on macro miss classification value.
+        value = confusionMatrix.macroMissClassificationRate();
+        expect(value).toBe(0);
+
+        // Test empty matrix accuracy miss classification value.
+        confusionMatrix = TestsHelper.getConfusionMatrix();
+        value = confusionMatrix.matrixMissClassificationRate();
+        expect(value).toBe(expectedWeightMatrixRateValue);
     });
 
     it("Can calculate the matrix precision value.", () => {
-        const confusionMatrix = TestsHelper.getConfusionMatrix();
+        let confusionMatrix = TestsHelper.getConfusionMatrix();
         const configuration = {
             label: 'Apple'
         };
@@ -370,33 +416,53 @@ describe("Confusion matrix model test suite", () => {
         value = confusionMatrix.precision({ average: AverageMethod.Micro });
         expect(value).toBe(microPrecisionValue);
 
-        // Expected micro rate value.
+        // Expected micro precision value.
         const macroPrecisionValue = (Apple.precision + Orange.precision
             + Mango.precision) / 3;
 
-        // Test matrix rate.
+        // Test matrix precision.
         value = confusionMatrix.precision({ average: AverageMethod.Macro });
         expect(value).toBe(macroPrecisionValue);
 
         const predictionsLabel = TestsHelper.getLabelsPredictionsSum();
 
-        // Expected matrix weight rate value.
-        const expectedWeightMatrixRateValue =
+        // Expected matrix weight precision value.
+        const expectedWeightMatrixPrecisionValue =
             ((Apple.precision * predictionsLabel.Apple) +
                 (Orange.precision * predictionsLabel.Orange) +
                 (Mango.precision * predictionsLabel.Mango)) / TestsHelper.getPredictionsSum();
 
         // Test matrix weighted precision value.
         value = confusionMatrix.precision({ average: AverageMethod.Weighted });
-        expect(value).toBe(expectedWeightMatrixRateValue);
+        expect(value).toBe(expectedWeightMatrixPrecisionValue);
 
         // Should use weighted as default average value.
         value = confusionMatrix.precision();
-        expect(value).toBe(expectedWeightMatrixRateValue);
+        expect(value).toBe(expectedWeightMatrixPrecisionValue);
+
+        // Test NAN on label precision.
+        confusionMatrix.matrix = [[0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]];
+        value = confusionMatrix.precision();
+        expect(value).toBe(0);
+
+        // Test NAN on micro precision.
+        value = confusionMatrix.microPrecision();
+        expect(value).toBe(0);
+
+        // Test NAN on macro precision.
+        value = confusionMatrix.macroPrecision();
+        expect(value).toBe(0);
+
+        // Test empty matrix precision average.
+        confusionMatrix = TestsHelper.getConfusionMatrix();
+        value = confusionMatrix.matrixPrecision();
+        expect(value).toBe(expectedWeightMatrixPrecisionValue);
     });
 
     it("Can calculate the matrix recall value.", () => {
-        const confusionMatrix = TestsHelper.getConfusionMatrix();
+        let confusionMatrix = TestsHelper.getConfusionMatrix();
         const configuration = {
             label: 'Apple'
         };
@@ -449,10 +515,30 @@ describe("Confusion matrix model test suite", () => {
         // Should use weighted as default recall value.
         value = confusionMatrix.recall();
         expect(value).toBe(expectedWeightMatrixRecallValue);
+
+        // Test NAN on label recall.
+        confusionMatrix.matrix = [[0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]];
+        value = confusionMatrix.recall();
+        expect(value).toBe(0);
+
+        // Test NAN on micro recall.
+        value = confusionMatrix.microRecall();
+        expect(value).toBe(0);
+
+        // Test NAN on macro recall.
+        value = confusionMatrix.macroRecall();
+        expect(value).toBe(0);
+
+        // Test empty matrix recall average.
+        confusionMatrix = TestsHelper.getConfusionMatrix();
+        value = confusionMatrix.matrixRecall();
+        expect(value).toBe(expectedWeightMatrixRecallValue);
     });
 
     it("Can calculate the matrix specificity value.", () => {
-        const confusionMatrix = TestsHelper.getConfusionMatrix();
+        let confusionMatrix = TestsHelper.getConfusionMatrix();
         const configuration = {
             label: 'Apple'
         };
@@ -504,22 +590,42 @@ describe("Confusion matrix model test suite", () => {
         const predictionsLabel = TestsHelper.getLabelsPredictionsSum();
 
         // Expected matrix weight specificity value.
-        const expectedWeightMatrixRateValue =
+        const expectedWeightMatrixSpecificityValue =
             ((expectedAppleSpecificityValue * predictionsLabel.Apple) +
                 (expectedOrangeSpecificityValue * predictionsLabel.Orange) +
                 (expectedMangoSpecificityValue * predictionsLabel.Mango)) / TestsHelper.getPredictionsSum();
 
         // Test matrix weighted specificity value.
         value = confusionMatrix.specificity({ average: AverageMethod.Weighted });
-        expect(value).toBe(expectedWeightMatrixRateValue);
+        expect(value).toBe(expectedWeightMatrixSpecificityValue);
 
         // Should use weighted as default specificity value.
         value = confusionMatrix.specificity();
-        expect(value).toBe(expectedWeightMatrixRateValue);
+        expect(value).toBe(expectedWeightMatrixSpecificityValue);
+
+        // Test NAN on label specificity.
+        confusionMatrix.matrix = [[0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]];
+        value = confusionMatrix.recall();
+        expect(value).toBe(0);
+
+        // Test NAN on micro specificity.
+        value = confusionMatrix.microSpecificity();
+        expect(value).toBe(0);
+
+        // Test NAN on macro specificity.
+        value = confusionMatrix.macroSpecificity();
+        expect(value).toBe(0);
+
+        // Test empty matrix specificity average.
+        confusionMatrix = TestsHelper.getConfusionMatrix();
+        value = confusionMatrix.matrixSpecificity();
+        expect(value).toBe(expectedWeightMatrixSpecificityValue);
     });
 
     it("Can calculate the matrix F1 Score value.", () => {
-        const confusionMatrix = TestsHelper.getConfusionMatrix();
+        let confusionMatrix = TestsHelper.getConfusionMatrix();
         const configuration = {
             label: 'Apple'
         };
@@ -569,18 +675,38 @@ describe("Confusion matrix model test suite", () => {
 
         const predictionsLabel = TestsHelper.getLabelsPredictionsSum();
 
-        // Expected matrix weight specificity value.
+        // Expected matrix weight F1Score value.
         const expectedWeightMatrixF1ScoreValue =
             ((expectedAppleF1ScoreValue * predictionsLabel.Apple) +
                 (expectedOrangeF1ScoreValue * predictionsLabel.Orange) +
                 (expectedMangoF1ScoreValue * predictionsLabel.Mango)) / TestsHelper.getPredictionsSum();
 
-        // Test matrix weighted specificity value.
+        // Test matrix weighted F1Score value.
         value = confusionMatrix.f1Score({ average: AverageMethod.Weighted });
         expect(value).toBe(expectedWeightMatrixF1ScoreValue);
 
-        // Should use weighted as default specificity value.
+        // Should use weighted as default F1Score value.
         value = confusionMatrix.f1Score();
+        expect(value).toBe(expectedWeightMatrixF1ScoreValue);
+
+        // Test NAN on label F1Score.
+        confusionMatrix.matrix = [[0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]];
+        value = confusionMatrix.f1Score();
+        expect(value).toBe(0);
+
+        // Test NAN on micro F1Score.
+        value = confusionMatrix.microF1Score();
+        expect(value).toBe(0);
+
+        // Test NAN on macro F1Score.
+        value = confusionMatrix.macroF1Score();
+        expect(value).toBe(0);
+
+        // Test empty matrix F1Score average.
+        confusionMatrix = TestsHelper.getConfusionMatrix();
+        value = confusionMatrix.matrixF1Score();
         expect(value).toBe(expectedWeightMatrixF1ScoreValue);
     });
 
@@ -609,6 +735,80 @@ describe("Confusion matrix model test suite", () => {
         confusionMatrix.transpose();
         expect(confusionMatrix.matrix).toEqual(matrix);
         expect(returnedConfusionMatrix).not.toEqual(confusionMatrix);
+    });
+
+    it("Can undo in history.", () => {
+        const confusionMatrix = TestsHelper.getConfusionMatrix();
+        expect(confusionMatrix.isUndoAvailable()).toBeFalsy();
+        const matrix = TestsHelper.getMatrix();
+        const labels = TestsHelper.getLabels();
+
+        let matrix1 = TestsHelper.deepCopy(matrix) as Array<Array<number>>;
+        matrix1[1][1] = 10000;
+
+        confusionMatrix.setConfusionMatrix(new ConfusionMatrix({ labels, matrix: matrix1 }));
+        expect(confusionMatrix.isUndoAvailable()).toBeTruthy();
+
+        let labels1 = TestsHelper.deepCopy(labels) as Array<string>;
+        labels1[1] = "History";
+        confusionMatrix.setConfusionMatrix(new ConfusionMatrix({ labels: labels1, matrix: matrix1 }));
+
+        expect(confusionMatrix?.matrix).toEqual(matrix1);
+        expect(confusionMatrix?.labels).toEqual(labels1);
+        expect(confusionMatrix.isUndoAvailable()).toBeTruthy();
+
+
+        let undoConfusionMatrix = confusionMatrix.undo();
+        expect(undoConfusionMatrix?.matrix).toEqual(matrix1);
+        expect(undoConfusionMatrix?.labels).toEqual(labels);
+        expect(confusionMatrix.isUndoAvailable()).toBeTruthy();
+
+        undoConfusionMatrix = confusionMatrix.undo();
+        expect(undoConfusionMatrix?.matrix).toEqual(matrix1);
+        expect(undoConfusionMatrix?.labels).toEqual(labels);
+        expect(confusionMatrix.isUndoAvailable()).toBeFalsy();
+
+        undoConfusionMatrix = confusionMatrix.undo();
+        expect(undoConfusionMatrix).toBeUndefined();
+    });
+
+    it("Can redo in history.", () => {
+        const confusionMatrix = TestsHelper.getConfusionMatrix();
+        expect(confusionMatrix.isUndoAvailable()).toBeFalsy();
+        const matrix = TestsHelper.getMatrix();
+        const labels = TestsHelper.getLabels();
+
+        let matrix1 = TestsHelper.deepCopy(matrix) as Array<Array<number>>;
+        matrix1[1][1] = 10000;
+
+        confusionMatrix.setConfusionMatrix(new ConfusionMatrix({ labels, matrix: matrix1 }));
+        expect(confusionMatrix.isRedoAvailable()).toBeFalsy();
+
+        let labels1 = TestsHelper.deepCopy(labels) as Array<string>;
+        labels1[1] = "History";
+        confusionMatrix.setConfusionMatrix(new ConfusionMatrix({ labels: labels1, matrix: matrix1 }));
+
+        expect(confusionMatrix?.matrix).toEqual(matrix1);
+        expect(confusionMatrix?.labels).toEqual(labels1);
+        expect(confusionMatrix.isRedoAvailable()).toBeFalsy();
+
+        let redoConfusionMatrix = confusionMatrix.redo();
+        expect(redoConfusionMatrix).toBeUndefined();
+        confusionMatrix?.undo()?.undo();
+        expect(confusionMatrix.isRedoAvailable()).toBeTruthy();
+
+        redoConfusionMatrix = confusionMatrix.redo();
+        expect(confusionMatrix?.matrix).toEqual(matrix1);
+        expect(confusionMatrix?.labels).toEqual(labels);
+        expect(confusionMatrix.isRedoAvailable()).toBeTruthy();
+
+        redoConfusionMatrix = confusionMatrix.redo();
+        expect(confusionMatrix?.matrix).toEqual(matrix1);
+        expect(confusionMatrix?.labels).toEqual(labels1);
+        expect(confusionMatrix.isRedoAvailable()).toBeFalsy();
+
+        redoConfusionMatrix = confusionMatrix.redo();
+        expect(confusionMatrix.isRedoAvailable()).toBeFalsy();
     });
 
 });
@@ -714,5 +914,9 @@ class TestsHelper {
             falsePositive: Apple.falsePositive + Orange.falsePositive + Mango.falsePositive,
             falseNegative: Apple.falseNegative + Orange.falseNegative + Mango.falseNegative
         }
+    }
+
+    static deepCopy(object: any): any {
+        return JSON.parse(JSON.stringify(object));
     }
 }
