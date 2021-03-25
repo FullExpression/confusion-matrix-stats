@@ -11,21 +11,48 @@
  */
 export class ConfusionMatrix {
 
-    /** Confusion matrix labels */
-    labels = new Array<string>();
+    /** Sets confusion matrix labels */
+    set labels(labels: Array<string>) {
+        this._labels = labels;
+        this.addToHistory();
+    }
 
-    /** 
-     * Confusion matrix values. 
-     * 
+    /** Gets confusion matrix labels */
+    get labels(): Array<string> {
+        return this._labels;
+    }
+
+    /**
+     * Sets confusion matrix values.
+     *
      * The columns represents the true classes and the columns the predicted classes.
      */
-    matrix = new Array<Array<number>>();
+    set matrix(matrix: Array<Array<number>>) {
+        this._matrix = matrix;
+        this.addToHistory();
+    }
+
+    get matrix(): Array<Array<number>> {
+        return this._matrix;
+    }
+
+    /** Local confusion matrix labels */
+    private _labels = new Array<string>();
+
+    /**
+    * Local confusion matrix values.
+    *
+    * The columns represents the true classes and the columns the predicted classes.
+    */
+    private _matrix = new Array<Array<number>>();
 
     /** Normalization history values. */
     private normalizations = new Array<ConfusionMatrix>();
 
+    /** Changes history array. */
     private history = new Array<ConfusionMatrix>();
 
+    /** Changes history pointer (current version used). */
     private historyPointer = -1;
     /**
      * Creates new instance of confusion matrix.
@@ -39,30 +66,37 @@ export class ConfusionMatrix {
      *       [3,4]]
      *   });
      * </code><pre> 
-     * @param confusionMatrix 
+     * @param confusionMatrix Confusion matrix values. he columns represents the true classes and the columns the predicted classes
+     * @param disableValidation All validations perform on creating a new Confusion Matrix instance will be disable.
+     * IMPORTANT: This will not disable validations at all times. If a function that run the validations is execute, errors could
+     * be throw due an invalid confusion matrix.
      */
-    constructor(confusionMatrix?: { labels: Array<string>, matrix: Array<Array<number>> }) {
+    constructor(confusionMatrix?: { labels: Array<string>, matrix: Array<Array<number>> }, disableValidation?: boolean) {
         if (confusionMatrix) {
-            this.labels = this.deepCopy(confusionMatrix.labels);
-            this.matrix = this.deepCopy(confusionMatrix.matrix);
+            this._labels = this.deepCopy(confusionMatrix.labels);
+            this._matrix = this.deepCopy(confusionMatrix.matrix);
         }
-        this.validate();
+        if (!disableValidation) {
+            this.validate();
+        }
+
     }
 
     /**
      * Sets the confusion matrix value based on another confusion matrix.
+     * @note The history from the arg confusion matrix will not override the current history.
+     * This action will be consider a normal confusion matrix edition and will be added as such to history.
      * @param confusionMatrix The confusion matrix.
      * @param saveInHistory Saves this change in confusion matrix history.
      * @return The Confusion Matrix after changes (this).
      */
     setConfusionMatrix(confusionMatrix: ConfusionMatrix, saveInHistory = true): ConfusionMatrix {
         if (confusionMatrix) {
-            this.labels = this.deepCopy<Array<string>>(confusionMatrix.labels);
-            this.matrix = this.deepCopy<Array<Array<number>>>(confusionMatrix.matrix);
+            this._labels = this.deepCopy<Array<string>>(confusionMatrix._labels);
+            this._matrix = this.deepCopy<Array<Array<number>>>(confusionMatrix._matrix);
             if (saveInHistory) {
                 this.addToHistory();
             }
-
         }
         this.validate();
         return this;
@@ -92,12 +126,12 @@ export class ConfusionMatrix {
             this.normalizations.push(new ConfusionMatrix(this));
             const minX = matrixMinMax.min;
             const maxX = matrixMinMax.max;
-            for (let i = 0; i < this.matrix.length; i++) {
-                for (let j = 0; j < this.matrix[i].length; j++) {
-                    const x = this.matrix[i][j];
-                    this.matrix[i][j] = ((max - min) * ((x - minX) / (maxX - minX))) + min;
+            for (let i = 0; i < this._matrix.length; i++) {
+                for (let j = 0; j < this._matrix[i].length; j++) {
+                    const x = this._matrix[i][j];
+                    this._matrix[i][j] = ((max - min) * ((x - minX) / (maxX - minX))) + min;
                     if (fractionDigits != undefined) {
-                        this.matrix[i][j] = +this.matrix[i][j].toFixed(fractionDigits);
+                        this._matrix[i][j] = +this._matrix[i][j].toFixed(fractionDigits);
                     }
                 }
             }
@@ -222,8 +256,8 @@ export class ConfusionMatrix {
     */
     macroAccuracy(): number {
         let sum = 0;
-        this.labels.forEach((label) => sum += this.labelAccuracy(label));
-        const result = sum / this.labels.length;
+        this._labels.forEach((label) => sum += this.labelAccuracy(label));
+        const result = sum / this._labels.length;
         return result || 0;
     }
 
@@ -241,7 +275,7 @@ export class ConfusionMatrix {
         const sumLabels = this.getLabelsPredictionsSum();
         const numberOfPredictions = this.getNumberOfPredictions();
         let sum = 0;
-        this.labels.forEach((label, index) => sum += (this.labelAccuracy(label) * sumLabels[index]));
+        this._labels.forEach((label, index) => sum += (this.labelAccuracy(label) * sumLabels[index]));
         const result = sum / numberOfPredictions;
         return result || 0;
     }
@@ -365,8 +399,8 @@ export class ConfusionMatrix {
     */
     macroMissClassificationRate(): number {
         let sum = 0;
-        this.labels.forEach((label) => sum += this.labelMissClassificationRate(label));
-        const result = sum / this.labels.length;
+        this._labels.forEach((label) => sum += this.labelMissClassificationRate(label));
+        const result = sum / this._labels.length;
         return result || 0;
     }
 
@@ -385,7 +419,7 @@ export class ConfusionMatrix {
         const sumLabels = this.getLabelsPredictionsSum();
         const numberOfPredictions = this.getNumberOfPredictions();
         let sum = 0;
-        this.labels.forEach((label, index) => sum += (this.labelMissClassificationRate(label) * sumLabels[index]));
+        this._labels.forEach((label, index) => sum += (this.labelMissClassificationRate(label) * sumLabels[index]));
         const result = sum / numberOfPredictions;
         return result || 0;
     }
@@ -504,8 +538,8 @@ export class ConfusionMatrix {
     */
     macroPrecision(): number {
         let sum = 0;
-        this.labels.forEach((label) => sum += this.labelPrecision(label));
-        const result = sum / this.labels.length;
+        this._labels.forEach((label) => sum += this.labelPrecision(label));
+        const result = sum / this._labels.length;
         return result || 0;
     }
 
@@ -524,7 +558,7 @@ export class ConfusionMatrix {
         const numberOfPredictions = this.getNumberOfPredictions();
 
         let sum = 0;
-        this.labels.forEach((label, index) => sum += (this.labelPrecision(label) * sumLabels[index]));
+        this._labels.forEach((label, index) => sum += (this.labelPrecision(label) * sumLabels[index]));
         const result = sum / numberOfPredictions;
         return result || 0;
     }
@@ -648,8 +682,8 @@ export class ConfusionMatrix {
     */
     macroRecall(): number {
         let sum = 0;
-        this.labels.forEach((label) => sum += this.labelRecall(label));
-        const result = sum / this.labels.length;
+        this._labels.forEach((label) => sum += this.labelRecall(label));
+        const result = sum / this._labels.length;
         return result || 0;
     }
 
@@ -669,7 +703,7 @@ export class ConfusionMatrix {
         const numberOfPredictions = this.getNumberOfPredictions();
 
         let sum = 0;
-        this.labels.forEach((label, index) => sum += (this.labelRecall(label) * sumLabels[index]));
+        this._labels.forEach((label, index) => sum += (this.labelRecall(label) * sumLabels[index]));
         const result = sum / numberOfPredictions;
         return result || 0;
     }
@@ -773,8 +807,8 @@ export class ConfusionMatrix {
     */
     macroSpecificity(): number {
         let sum = 0;
-        this.labels.forEach((label) => sum += this.labelSpecificity(label));
-        const result = sum / this.labels.length;
+        this._labels.forEach((label) => sum += this.labelSpecificity(label));
+        const result = sum / this._labels.length;
         return result || 0;
     }
 
@@ -794,7 +828,7 @@ export class ConfusionMatrix {
         const numberOfPredictions = this.getNumberOfPredictions();
 
         let sum = 0;
-        this.labels.forEach((label, index) => sum += (this.labelSpecificity(label) * sumLabels[index]));
+        this._labels.forEach((label, index) => sum += (this.labelSpecificity(label) * sumLabels[index]));
         const result = sum / numberOfPredictions;
         return result || 0;
     }
@@ -934,8 +968,8 @@ export class ConfusionMatrix {
     */
     macroF1Score(): number {
         let sum = 0;
-        this.labels.forEach((label) => sum += this.labelF1Score(label));
-        const result = sum / this.labels.length;
+        this._labels.forEach((label) => sum += this.labelF1Score(label));
+        const result = sum / this._labels.length;
         return result || 0;
     }
 
@@ -954,7 +988,7 @@ export class ConfusionMatrix {
         const numberOfPredictions = this.getNumberOfPredictions();
 
         let sum = 0;
-        this.labels.forEach((label, index) => sum += (this.labelF1Score(label) * sumLabels[index]));
+        this._labels.forEach((label, index) => sum += (this.labelF1Score(label) * sumLabels[index]));
         const result = sum / numberOfPredictions;
         return result || 0;
     }
@@ -972,7 +1006,7 @@ export class ConfusionMatrix {
     getAllMatrixClasses(): Array<{ label: string, confusionMatrixClasses: ConfusionMatrixClasses }> {
         this.validate();
         const all = new Array<{ label: string, confusionMatrixClasses: ConfusionMatrixClasses }>();
-        this.labels.forEach((label) => all.push({
+        this._labels.forEach((label) => all.push({
             label: label,
             confusionMatrixClasses: this.getConfusionMatrixClasses(label)
         }));
@@ -1015,20 +1049,20 @@ export class ConfusionMatrix {
         if (!label) {
             throw new Error('A valid label should be passed.');
         }
-        const position = this.labels.findIndex(element => element === label);
+        const position = this._labels.findIndex(element => element === label);
         if (position == -1) {
             throw new Error('The label does not exists in the matrix.');
         }
 
         const numberOfPredictions = this.getNumberOfPredictions();
-        const truePositive = this.matrix[position][position];
-        const falsePositive = this.matrix[position].reduce(
+        const truePositive = this._matrix[position][position];
+        const falsePositive = this._matrix[position].reduce(
             (previous, next) => previous + next) - truePositive;
 
         let falseNegative = 0;
 
-        for (let i = 0; i < this.matrix.length; i++) {
-            falseNegative += this.matrix[i][position];
+        for (let i = 0; i < this._matrix.length; i++) {
+            falseNegative += this._matrix[i][position];
         }
 
         falseNegative -= truePositive;
@@ -1058,9 +1092,9 @@ export class ConfusionMatrix {
      * */
     clone(): ConfusionMatrix {
         const cloneObj = new ConfusionMatrix({
-            labels: this.labels,
-            matrix: this.matrix,
-        });
+            labels: this._labels,
+            matrix: this._matrix,
+        }, true);
         cloneObj.normalizations = this.deepCopy<Array<ConfusionMatrix>>(this.normalizations);
         cloneObj.history = this.deepCopy<Array<ConfusionMatrix>>(this.history);
         cloneObj.historyPointer = this.deepCopy<number>(this.historyPointer);
@@ -1072,13 +1106,13 @@ export class ConfusionMatrix {
      * @return Min and max confusion matrix value or null if not exists.
      */
     getMinAndMax(): { min: number, max: number } | null {
-        let min = this.matrix[0][0];
-        let max = this.matrix[0][0];
+        let min = this._matrix[0][0];
+        let max = this._matrix[0][0];
 
         if (!min || !max) {
             return null;
         }
-        for (let line of this.matrix) {
+        for (let line of this._matrix) {
             for (let val of line) {
                 max = max < val ? val : max;
                 min = min > val ? val : min;
@@ -1110,7 +1144,7 @@ export class ConfusionMatrix {
         const sumLabels = this.getLabelsPredictionsSum();
 
         if (label && label.length > 0) {
-            const index = this.labels.findIndex(value => value === label);
+            const index = this._labels.findIndex(value => value === label);
             return sumLabels[index];
         } else {
             const numberOfPredictions = sumLabels.reduce((prev, next) => prev + next);
@@ -1125,9 +1159,9 @@ export class ConfusionMatrix {
      * on the confusion matrix.
      */
     getLabelsPredictionsSum(): Array<number> {
-        let sumLabels = new Array<number>(this.labels.length)
-            .fill(0, 0, this.labels.length);
-        this.matrix.forEach((array) =>
+        let sumLabels = new Array<number>(this._labels.length)
+            .fill(0, 0, this._labels.length);
+        this._matrix.forEach((array) =>
             array.forEach((value, index) => {
                 sumLabels[index] += value;
             }));
@@ -1141,20 +1175,20 @@ export class ConfusionMatrix {
      * @return The Confusion Matrix after changes (this).
      */
     validate(): ConfusionMatrix {
-        if (this.labels.length !== this.matrix.length) {
+        if (this._labels.length !== this._matrix.length) {
             throw new Error('The labels length should be equals to the matrix columns length.');
         }
 
-        for (let i = 0; i < this.labels.length - 1; i++) {
-            for (let j = i + 1; j < this.labels.length; j++) {
-                if (this.labels[i] === this.labels[j]) {
-                    throw new Error(`The label ${this.labels[i]} appears more than once in the labels array.`);
+        for (let i = 0; i < this._labels.length - 1; i++) {
+            for (let j = i + 1; j < this._labels.length; j++) {
+                if (this._labels[i] === this._labels[j]) {
+                    throw new Error(`The label ${this._labels[i]} appears more than once in the labels array.`);
                 }
             }
         }
 
-        this.matrix.forEach(array => {
-            if (array.length !== this.matrix.length) {
+        this._matrix.forEach(array => {
+            if (array.length !== this._matrix.length) {
                 throw new Error('The confusion matrix does not have the columns/rows length.');
             }
         });
@@ -1165,7 +1199,7 @@ export class ConfusionMatrix {
      * @return The Confusion Matrix after changes (this).
      */
     transpose(): ConfusionMatrix {
-        this.matrix = this.matrix[0].map((col, i) => this.matrix.map(row => row[i]));
+        this._matrix = this._matrix[0].map((col, i) => this._matrix.map(row => row[i]));
         this.addToHistory();
         return this;
     }
