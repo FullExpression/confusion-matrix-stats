@@ -1091,13 +1091,15 @@ export class ConfusionMatrix {
      * Deep clones and return the current confusion matrix.
      * @return The deep cloned confusion matrix object. 
      * */
-    clone(): ConfusionMatrix {
+    clone(withoutHistory = false): ConfusionMatrix {
         const cloneObj = new ConfusionMatrix(undefined, true);
         cloneObj._labels = this.deepCopy<Array<string>>(this._labels);
         cloneObj._matrix = this.deepCopy<Array<Array<number>>>(this._matrix);
         cloneObj.normalizations = this.deepCopy<Array<ConfusionMatrix>>(this.normalizations);
-        cloneObj.history = this.deepCopy<Array<ConfusionMatrix>>(this.history);
-        cloneObj.historyPointer = this.deepCopy<number>(this.historyPointer);
+        if (!withoutHistory) {
+            cloneObj.history = this.deepCopy<Array<ConfusionMatrix>>(this.history);
+            cloneObj.historyPointer = this.deepCopy<number>(this.historyPointer);
+        }
         return cloneObj;
     }
 
@@ -1278,7 +1280,7 @@ export class ConfusionMatrix {
         } else {
             this.historyPointer++;
         }
-        this.history.push(this.clone());
+        this.history.push(this.clone(true));
     }
 
 }

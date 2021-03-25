@@ -821,6 +821,22 @@ describe("Confusion matrix model test suite", () => {
         expect(confusionMatrix.isRedoAvailable()).toBeFalsy();
     });
 
+    it("Should preform 100 000 changes in less then 1 second", () => {
+        const matrix = TestsHelper.getMatrix();
+        const labels = TestsHelper.getLabels();
+        const confusionMatrix = TestsHelper.getConfusionMatrix();
+        let matrix1 = TestsHelper.deepCopy(matrix) as Array<Array<number>>;
+
+        const startDate = new Date().getMilliseconds();
+        for (let i = 0; i < 100000; i++) {
+            matrix1[1][1] = i;
+            confusionMatrix.setConfusionMatrix(new ConfusionMatrix({ labels, matrix: matrix1 }));
+        }
+        const endDate = new Date().getMilliseconds();
+        const duration = startDate - endDate;
+        expect(duration).toBeLessThan(1000);
+    });
+
 });
 
 class TestsHelper {
