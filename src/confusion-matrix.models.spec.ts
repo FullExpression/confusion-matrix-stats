@@ -18,8 +18,10 @@ describe("Confusion matrix model test suite", () => {
         const returnedConfusionMatrix = confusionMatrix.setConfusionMatrix(anotherConfusionMatrix, false);
         expect(confusionMatrix.labels).toEqual(labels);
         expect(confusionMatrix.matrix).toEqual(matrix);
-        expect(returnedConfusionMatrix).toEqual(anotherConfusionMatrix);
-        expect(confusionMatrix).toEqual(anotherConfusionMatrix);
+        expect(returnedConfusionMatrix.labels).toEqual(anotherConfusionMatrix.labels);
+        expect(returnedConfusionMatrix.matrix).toEqual(anotherConfusionMatrix.matrix);
+        expect(confusionMatrix.labels).toEqual(anotherConfusionMatrix.labels);
+        expect(confusionMatrix.matrix).toEqual(anotherConfusionMatrix.matrix);
     });
 
     it("Should set/get labels and matrix", () => {
@@ -772,7 +774,7 @@ describe("Confusion matrix model test suite", () => {
         expect(confusionMatrix.isUndoAvailable()).toBeTruthy();
 
         undoConfusionMatrix = confusionMatrix.undo();
-        expect(undoConfusionMatrix?.matrix).toEqual(matrix1);
+        expect(undoConfusionMatrix?.matrix).toEqual(matrix);
         expect(undoConfusionMatrix?.labels).toEqual(labels);
         expect(confusionMatrix.isUndoAvailable()).toBeFalsy();
 

@@ -28,8 +28,8 @@ export class ConfusionMatrix {
      * The columns represents the true classes and the columns the predicted classes.
      */
     set matrix(matrix: Array<Array<number>>) {
-        this._matrix = matrix;
         this.addToHistory();
+        this._matrix = matrix;
     }
 
     get matrix(): Array<Array<number>> {
@@ -75,11 +75,11 @@ export class ConfusionMatrix {
         if (confusionMatrix) {
             this._labels = this.deepCopy(confusionMatrix.labels);
             this._matrix = this.deepCopy(confusionMatrix.matrix);
+            this.addToHistory();
         }
         if (!disableValidation) {
             this.validate();
         }
-
     }
 
     /**
@@ -123,6 +123,7 @@ export class ConfusionMatrix {
         this.validate();
         const matrixMinMax = this.getMinAndMax();
         if (matrixMinMax) {
+            this.addToHistory()
             this.normalizations.push(new ConfusionMatrix(this));
             const minX = matrixMinMax.min;
             const maxX = matrixMinMax.max;
@@ -135,7 +136,7 @@ export class ConfusionMatrix {
                     }
                 }
             }
-            this.addToHistory()
+
         }
         return this;
     }
@@ -1079,8 +1080,8 @@ export class ConfusionMatrix {
     revertNormalization(): ConfusionMatrix | null {
         const cm = this.normalizations.pop();
         if (cm) {
-            this.setConfusionMatrix(cm);
             this.addToHistory()
+            this.setConfusionMatrix(cm);
             return cm;
         }
         return null;
@@ -1091,10 +1092,9 @@ export class ConfusionMatrix {
      * @return The deep cloned confusion matrix object. 
      * */
     clone(): ConfusionMatrix {
-        const cloneObj = new ConfusionMatrix({
-            labels: this._labels,
-            matrix: this._matrix,
-        }, true);
+        const cloneObj = new ConfusionMatrix(undefined, true);
+        cloneObj._labels = this.deepCopy<Array<string>>(this._labels);
+        cloneObj._matrix = this.deepCopy<Array<Array<number>>>(this._matrix);
         cloneObj.normalizations = this.deepCopy<Array<ConfusionMatrix>>(this.normalizations);
         cloneObj.history = this.deepCopy<Array<ConfusionMatrix>>(this.history);
         cloneObj.historyPointer = this.deepCopy<number>(this.historyPointer);
@@ -1199,8 +1199,8 @@ export class ConfusionMatrix {
      * @return The Confusion Matrix after changes (this).
      */
     transpose(): ConfusionMatrix {
-        this._matrix = this._matrix[0].map((col, i) => this._matrix.map(row => row[i]));
         this.addToHistory();
+        this._matrix = this._matrix[0].map((col, i) => this._matrix.map(row => row[i]));
         return this;
     }
 
@@ -1209,7 +1209,7 @@ export class ConfusionMatrix {
      * @returns Whether undo feature is available
      */
     isUndoAvailable(): boolean {
-        return !(this.historyPointer === -1);
+        return this.historyPointer > -1 && this.history.length > 1;
     }
 
     /**
@@ -1218,8 +1218,11 @@ export class ConfusionMatrix {
      */
     undo(): ConfusionMatrix | undefined {
         if (this.isUndoAvailable()) {
-            this.historyPointer--;
+            if (this.historyPointer === this.history.length - 1) {
+                this.historyPointer = this.history.length - 2;
+            }
             this.setConfusionMatrix(this.history[this.historyPointer], false);
+            this.historyPointer--;
             return this;
         }
         return undefined;
@@ -1230,7 +1233,8 @@ export class ConfusionMatrix {
      * @returns Whether undo feature is available
      */
     isRedoAvailable(): boolean {
-        return !(this.historyPointer === this.history.length - 1);
+        return this.history.length > 1 &&
+            this.historyPointer < this.history.length - 1;
     }
 
     /**
@@ -1240,7 +1244,11 @@ export class ConfusionMatrix {
     redo(): ConfusionMatrix | undefined {
         if (this.isRedoAvailable()) {
             this.historyPointer++;
+            if (this.historyPointer < 1) {
+                this.historyPointer = 1;
+            }
             this.setConfusionMatrix(this.history[this.historyPointer], false);
+
             return this;
         }
     }
@@ -1264,12 +1272,13 @@ export class ConfusionMatrix {
     }
 
     private addToHistory() {
-        this.history.push(this.clone());
+
         if (this.historyPointer === -1) {
             this.historyPointer = 0;
         } else {
             this.historyPointer++;
         }
+        this.history.push(this.clone());
     }
 
 }
