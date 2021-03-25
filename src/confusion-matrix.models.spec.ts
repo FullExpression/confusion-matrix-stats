@@ -120,6 +120,14 @@ describe("Confusion matrix model test suite", () => {
 
     it("Can clone confusion matrix.", () => {
         const confusionMatrix = TestsHelper.getConfusionMatrix();
+
+        // To test bug #16: insures history object is not empty.
+        confusionMatrix.setConfusionMatrix(new ConfusionMatrix({
+            labels: ["Amazing", "Library"],
+            matrix: [[5, 2],
+            [0, 5]]
+        }));
+
         const clonedConfusionMatrix = confusionMatrix.clone();
 
         expect(confusionMatrix).toEqual(clonedConfusionMatrix);

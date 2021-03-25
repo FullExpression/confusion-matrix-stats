@@ -1062,6 +1062,8 @@ export class ConfusionMatrix {
             matrix: this.matrix,
         });
         cloneObj.normalizations = this.deepCopy<Array<ConfusionMatrix>>(this.normalizations);
+        cloneObj.history = this.deepCopy<Array<ConfusionMatrix>>(this.history);
+        cloneObj.historyPointer = this.deepCopy<number>(this.historyPointer);
         return cloneObj;
     }
 
@@ -1168,10 +1170,18 @@ export class ConfusionMatrix {
         return this;
     }
 
+    /**
+     * Whether undo feature is available.
+     * @returns Whether undo feature is available
+     */
     isUndoAvailable(): boolean {
         return !(this.historyPointer === -1);
     }
 
+    /**
+     * Reverts the last change occurred in confusion matrix.
+     * @returns The confusion matrix after the undo is performed.
+     */
     undo(): ConfusionMatrix | undefined {
         if (this.isUndoAvailable()) {
             this.historyPointer--;
@@ -1181,10 +1191,18 @@ export class ConfusionMatrix {
         return undefined;
     }
 
+    /**
+     * Whether redo feature is available.
+     * @returns Whether undo feature is available
+     */
     isRedoAvailable(): boolean {
         return !(this.historyPointer === this.history.length - 1);
     }
 
+    /**
+     * Revers the last action performed by undo feature.
+     * @returns The confusion matrix after the undo is performed.
+     */
     redo(): ConfusionMatrix | undefined {
         if (this.isRedoAvailable()) {
             this.historyPointer++;
