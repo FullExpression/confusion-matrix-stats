@@ -86,3 +86,16 @@ body {
 a:link {
     color: black;
 }
+
+.share-social-media h4 {
+    margin-bottom: 0px;
+}
+
+.share-social-media .share-buttons {
+    transform: scale(.7);
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 372px;
+}
