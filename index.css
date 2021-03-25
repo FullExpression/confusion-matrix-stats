@@ -14,10 +14,14 @@ body {
     display: flex;
     background: linear-gradient(108deg, rgba(252, 176, 69, 0.9) 0%, rgba(255, 0, 0, 0.5) 49%, rgba(252, 176, 69, 0.7) 100%);
     color: white;
-    height: calc(100% - 40px);
-    width: calc(100% - 40px);
-    padding: 20px;
+    height: 100%;
+    width: 100%;
+}
+
+.wrapper .wrapper-inner {
     overflow: auto;
+    padding: 30px;
+    width: 100%;
 }
 
 .wrapper .information {
@@ -85,6 +89,12 @@ body {
 
 a:link {
     color: black;
+}
+
+.share-social-media {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .share-social-media h4 {
