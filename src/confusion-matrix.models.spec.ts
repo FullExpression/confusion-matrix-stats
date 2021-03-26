@@ -821,6 +821,39 @@ describe("Confusion matrix model test suite", () => {
         expect(confusionMatrix.isRedoAvailable()).toBeFalsy();
     });
 
+    it("Can undo after redo and vise-versa", () => {
+        const matrix = TestsHelper.getMatrix();
+        const labels = TestsHelper.getLabels();
+        const confusionMatrix = TestsHelper.getConfusionMatrix();
+        let matrix1 = TestsHelper.deepCopy(matrix) as Array<Array<number>>;
+
+
+        for (let i = 0; i < 20; i++) {
+            matrix1[0][0] = i;
+            labels[0] = `${labels}-${i}`;
+            confusionMatrix.setConfusionMatrix(new ConfusionMatrix({ labels, matrix: matrix1 }));
+        }
+
+        confusionMatrix?.undo()?.undo()?.undo()?.undo()?.undo();
+        expect(confusionMatrix?.matrix[0][0]).toBe(14);
+        confusionMatrix?.undo()?.undo()?.redo()?.redo()?.redo();
+        expect(confusionMatrix?.matrix[0][0]).toBe(15);
+        confusionMatrix?.redo()?.redo()?.redo();
+        expect(confusionMatrix?.matrix[0][0]).toBe(18);
+        confusionMatrix?.undo()?.undo();
+        expect(confusionMatrix?.matrix[0][0]).toBe(16);
+        confusionMatrix?.undo()?.undo()?.undo()?.undo()?.undo()?.undo()
+            ?.undo()?.undo()?.undo()?.undo()?.undo()?.undo()?.undo()?.undo()?.undo()
+            ?.undo();
+        confusionMatrix?.undo()?.undo()?.undo();
+        expect(confusionMatrix?.matrix[0][0]).toBe(7);
+        confusionMatrix?.redo()?.redo()?.redo()?.redo()?.redo()?.redo()
+            ?.redo()?.redo()?.redo()?.redo()?.redo()?.redo()?.redo()?.redo()?.redo()
+            ?.redo()?.redo()?.redo()?.redo()?.redo()?.redo()?.redo()?.redo();
+        confusionMatrix?.redo()?.redo()?.redo();
+        expect(confusionMatrix?.matrix[0][0]).toBe(19);
+    });
+
     it("Should preform 100 000 changes in less then 1 second", () => {
         const matrix = TestsHelper.getMatrix();
         const labels = TestsHelper.getLabels();

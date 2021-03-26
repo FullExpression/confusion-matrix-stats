@@ -54,6 +54,9 @@ export class ConfusionMatrix {
 
     /** Changes history pointer (current version used). */
     private historyPointer = -1;
+
+    private lastHistoryEvent: 'undo' | 'redo' | null = null;
+
     /**
      * Creates new instance of confusion matrix.
      * 
@@ -1220,11 +1223,17 @@ export class ConfusionMatrix {
      */
     undo(): ConfusionMatrix | undefined {
         if (this.isUndoAvailable()) {
+            if (this.lastHistoryEvent === 'redo') {
+                this.historyPointer--;
+            }
+
             if (this.historyPointer === this.history.length - 1) {
                 this.historyPointer = this.history.length - 2;
             }
+
             this.setConfusionMatrix(this.history[this.historyPointer], false);
             this.historyPointer--;
+            this.lastHistoryEvent = 'undo';
             return this;
         }
         return undefined;
@@ -1245,12 +1254,12 @@ export class ConfusionMatrix {
      */
     redo(): ConfusionMatrix | undefined {
         if (this.isRedoAvailable()) {
-            this.historyPointer++;
-            if (this.historyPointer < 1) {
-                this.historyPointer = 1;
+            if (this.lastHistoryEvent === 'undo') {
+                this.historyPointer++;
             }
+            this.historyPointer++;
             this.setConfusionMatrix(this.history[this.historyPointer], false);
-
+            this.lastHistoryEvent = 'redo';
             return this;
         }
     }
