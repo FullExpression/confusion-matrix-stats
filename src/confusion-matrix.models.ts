@@ -1179,25 +1179,25 @@ export class ConfusionMatrix {
      * 
      * @return The Confusion Matrix after changes (this).
      */
-    validate(): ConfusionMatrix {
-        if (this._labels.length !== this._matrix.length) {
+    validate(confusionMatrix: ConfusionMatrix = this): ConfusionMatrix {
+        if (confusionMatrix._labels.length !== confusionMatrix._matrix.length) {
             throw new Error('The labels length should be equals to the matrix columns length.');
         }
 
-        for (let i = 0; i < this._labels.length - 1; i++) {
-            for (let j = i + 1; j < this._labels.length; j++) {
-                if (this._labels[i] === this._labels[j]) {
-                    throw new Error(`The label ${this._labels[i]} appears more than once in the labels array.`);
+        for (let i = 0; i < confusionMatrix._labels.length - 1; i++) {
+            for (let j = i + 1; j < confusionMatrix._labels.length; j++) {
+                if (confusionMatrix._labels[i].toLocaleLowerCase() === confusionMatrix._labels[j].toLowerCase()) {
+                    throw new Error(`The label ${confusionMatrix._labels[i]} appears more than once in the labels array.`);
                 }
             }
         }
 
-        this._matrix.forEach(array => {
-            if (array.length !== this._matrix.length) {
+        confusionMatrix._matrix.forEach(array => {
+            if (array.length !== confusionMatrix._matrix.length) {
                 throw new Error('The confusion matrix does not have the columns/rows length.');
             }
         });
-        return this;
+        return confusionMatrix;
     }
     /**
      * Change the rows for the columns and vice-versa.
@@ -1262,6 +1262,67 @@ export class ConfusionMatrix {
             this.lastHistoryEvent = 'redo';
             return this;
         }
+    }
+
+    /**
+     * Removes a given label from the confusion matrix.
+     * If the label does not exits, nothing will happen (no error will be thrown).
+     * @param label 
+     * @returns The confusion matrix after the label removal.
+     */
+    removeLabel(label: string): ConfusionMatrix {
+        const index = this._labels.findIndex(l => l === label);
+        if (index > -1) {
+            this._labels.splice(index, 1);
+            this._matrix.splice(index, 1);
+            for (let i = 0; i < this._matrix.length; i++) {
+                this._matrix[i].splice(index, 1);
+            }
+            this.addToHistory();
+        }
+
+        return this;
+    }
+
+    /**
+     * Adds new label in confusion matrix.
+     * @param label Label name.
+     * @param rowValues Rows values.
+     * @param columnsValues Columns values.
+     * @param index Index position which the label should be insert in the confusion matrix.
+     * If null or undefined, will be added at the end of the confusion matrix.
+     * @returns The confusion matrix with the new label.
+     */
+    addLabel(label: string, rowValues: Array<number>, columnsValues: Array<number>,
+        index = this._labels.length): ConfusionMatrix {
+
+        // Data input validations
+        if (rowValues[index] !== columnsValues[index]) {
+            throw new Error(`The value form rowValues on position ${index} (value=${rowValues[index]}) should be the same in columnsValues position ${index} (value=${columnsValues[index]}).`);
+        }
+
+        if (rowValues.length !== columnsValues.length) {
+            throw new Error(`The rows as columns arrays should have the same length.`);
+        }
+
+        if (rowValues.length !== this._labels.length + 1) {
+            throw new Error(`The rows values length should be ${this._labels.length + 1} instead of ${rowValues.length}.`);
+        }
+
+        const cm = this.clone();
+        cm._labels.splice(index, 0, label);
+        cm._matrix.splice(index, 0, rowValues);
+
+        for (let i = 0; i < cm.matrix.length; i++) {
+            if (i !== index) {
+                cm._matrix[i].splice(index, 0, columnsValues[i]);
+            }
+
+        }
+        this.validate(cm);
+        this.setConfusionMatrix(cm);
+
+        return this;
     }
 
     /**

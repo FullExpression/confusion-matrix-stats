@@ -854,6 +854,82 @@ describe("Confusion matrix model test suite", () => {
         expect(confusionMatrix?.matrix[0][0]).toBe(19);
     });
 
+    it("Can remove a label from confusion matrix", () => {
+        const confusionMatrix = TestsHelper.getConfusionMatrix();
+
+        confusionMatrix.removeLabel('Do not exists');
+        expect(confusionMatrix.labels).toEqual(TestsHelper.getLabels());
+        expect(confusionMatrix.matrix).toEqual(TestsHelper.getMatrix());
+
+        confusionMatrix.removeLabel('Orange');
+        expect(confusionMatrix.labels).toEqual(["Apple", "Mango"]);
+        expect(confusionMatrix.matrix).toEqual([[7, 10], [3, 0]]);
+
+        confusionMatrix.removeLabel('Apple');
+        expect(confusionMatrix.labels).toEqual(["Mango"]);
+        expect(confusionMatrix.matrix).toEqual([[0]]);
+
+        confusionMatrix.removeLabel('Mango');
+        expect(confusionMatrix.labels).toEqual([]);
+        expect(confusionMatrix.matrix).toEqual([]);
+
+        confusionMatrix.removeLabel('Do not exists');
+        expect(confusionMatrix.labels).toEqual([]);
+        expect(confusionMatrix.matrix).toEqual([]);
+
+    });
+
+    it("Can add new label", () => {
+        const confusionMatrix = new ConfusionMatrix();
+
+        confusionMatrix.addLabel('Happiness', [0], [0]);
+        expect(confusionMatrix.labels).toEqual(['Happiness']);
+        expect(confusionMatrix.matrix).toEqual([[0]]);
+
+        confusionMatrix.addLabel('Sadness', [3, 5], [4, 5]);
+        expect(confusionMatrix.labels).toEqual(['Happiness', 'Sadness']);
+        expect(confusionMatrix.matrix).toEqual([
+            [0, 4],
+            [3, 5]]);
+
+        confusionMatrix.addLabel('Angry', [30, 40, 50], [10, 40, 20], 1);
+        expect(confusionMatrix.labels).toEqual(['Happiness', 'Angry', 'Sadness']);
+        expect(confusionMatrix.matrix).toEqual([
+            [0, 10, 4],
+            [30, 40, 50],
+            [3, 20, 5]]);
+
+        confusionMatrix.addLabel('Surprised', [11, 22, 33, 44], [11, 22, 33, 44], 0);
+        expect(confusionMatrix.labels).toEqual(['Surprised', 'Happiness', 'Angry', 'Sadness']);
+        expect(confusionMatrix.matrix).toEqual([
+            [11, 22, 33, 44],
+            [22, 0, 10, 4],
+            [33, 30, 40, 50],
+            [44, 3, 20, 5]]);
+
+
+        confusionMatrix.addLabel
+
+        // Data entry test
+        expect(() => confusionMatrix.addLabel('Depressed', [121, 22, 33], [113, 23, 433], 1))
+            .toThrow(new Error('The value form rowValues on position 1 (value=22) should be the same in columnsValues position 1 (value=23).'));
+
+        expect(() => confusionMatrix.addLabel('Depressed', [11, 22, 33, 44], [11, 22, 33], 0))
+            .toThrow(new Error('The rows as columns arrays should have the same length.'));
+
+        expect(() => confusionMatrix.addLabel('Depressed', [11, 22, 33], [11, 22, 33, 44], 0))
+            .toThrow(new Error('The rows as columns arrays should have the same length.'));
+
+        expect(() => confusionMatrix.addLabel('Depressed', [11, 22, 33], [11, 22, 33], 0))
+            .toThrow(new Error('The rows values length should be 5 instead of 3.'));
+
+        expect(() => confusionMatrix.addLabel('Depressed', [11, 22, 33, 44], [11, 22, 33, 44], 0))
+            .toThrow(new Error('The rows values length should be 5 instead of 4.'));
+
+        expect(() => confusionMatrix.addLabel('Depressed', [11, 22, 33], [11, 22, 33], 0))
+            .toThrow(new Error('The rows values length should be 5 instead of 3.'));
+    });
+
     it("Should preform 100 000 changes in less then 1 second", () => {
         const matrix = TestsHelper.getMatrix();
         const labels = TestsHelper.getLabels();
