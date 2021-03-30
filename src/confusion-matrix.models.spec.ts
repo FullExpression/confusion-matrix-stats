@@ -1,4 +1,5 @@
-import { AverageMethod, ConfusionMatrix, ConfusionMatrixClasses } from "./confusion-matrix.models";
+import { AverageMethod, ConfusionMatrix, ConfusionMatrixClasses, SupportedDataTypes } from "./confusion-matrix.models";
+import { version } from '../package.json';
 
 describe("Confusion matrix model test suite", () => {
 
@@ -944,6 +945,49 @@ describe("Confusion matrix model test suite", () => {
         const endDate = new Date().getMilliseconds();
         const duration = startDate - endDate;
         expect(duration).toBeLessThan(1000);
+    });
+
+    it("Can convert confusion matrix to other data type format.", () => {
+        const confusionMatrix = TestsHelper.getConfusionMatrix();
+        const json = confusionMatrix.convertTo(SupportedDataTypes.JSON);
+        const parsedJson = JSON.parse(json);
+        expect(parsedJson.softwareVersion).toEqual(version);
+        expect(parsedJson.labels).toEqual(confusionMatrix.labels);
+        expect(parsedJson.matrix).toEqual(confusionMatrix.matrix);
+        expect(parsedJson.normalizations).toEqual([]);
+    });
+
+    it("Can set matrix from several data types formats.", () => {
+        const confusionMatrix = TestsHelper.getConfusionMatrix();
+        const newConfusionMatrix = new ConfusionMatrix({ labels: [], matrix: [] });
+        const json = confusionMatrix.convertTo(SupportedDataTypes.JSON);
+        newConfusionMatrix.import(json, SupportedDataTypes.JSON);
+        expect(newConfusionMatrix).toEqual(confusionMatrix);
+
+        const invalidJson = `invalid json`;
+        expect(() => confusionMatrix.import(invalidJson, SupportedDataTypes.JSON))
+            .toThrow(new Error('It was not possible to import the json.\n Details:\nSyntaxError: Unexpected token i in JSON at position 0'));
+    });
+
+    it("Can reset confusion matrix.", () => {
+        const confusionMatrix = TestsHelper.getConfusionMatrix();
+        const newCm = new ConfusionMatrix();
+        confusionMatrix.reset();
+        expect(newCm).toEqual(confusionMatrix);
+    });
+
+    it("Can change label order.", () => {
+        const confusionMatrix = TestsHelper.getConfusionMatrix();
+        confusionMatrix.changeLabelOrder(0, 2);
+        const newConfusionMatrix = new ConfusionMatrix({
+            labels: ["Mango", "Orange", "Apple"],
+            matrix: [[0, 2, 3],
+            [3, 2, 1],
+            [10, 8, 7]]
+        });
+
+        expect(newConfusionMatrix.matrix).toEqual(confusionMatrix.matrix);
+        expect(newConfusionMatrix.labels).toEqual(confusionMatrix.labels);
     });
 
 });

@@ -1,3 +1,5 @@
+import { version } from '../package.json';
+
 /**
  * Confusion matrix model which summarizes the prediction results on a classification problem.
  * 
@@ -1267,18 +1269,26 @@ export class ConfusionMatrix {
     /**
      * Removes a given label from the confusion matrix.
      * If the label does not exits, nothing will happen (no error will be thrown).
-     * @param label 
+     * @param label Label name.
+     * @param addToHistory Whether the change should be added to history.
      * @returns The confusion matrix after the label removal.
      */
-    removeLabel(label: string): ConfusionMatrix {
+    removeLabel(label: string, addToHistory = true): ConfusionMatrix {
         const index = this._labels.findIndex(l => l === label);
-        if (index > -1) {
-            this._labels.splice(index, 1);
-            this._matrix.splice(index, 1);
+        this.removeLabelUsingPosition(index, addToHistory);
+
+        return this;
+    }
+
+
+    removeLabelUsingPosition(position: number, addToHistory = true): ConfusionMatrix {
+        if (position > -1) {
+            this._labels.splice(position, 1);
+            this._matrix.splice(position, 1);
             for (let i = 0; i < this._matrix.length; i++) {
-                this._matrix[i].splice(index, 1);
+                this._matrix[i].splice(position, 1);
             }
-            this.addToHistory();
+            addToHistory && this.addToHistory();
         }
 
         return this;
@@ -1290,11 +1300,12 @@ export class ConfusionMatrix {
      * @param rowValues Rows values.
      * @param columnsValues Columns values.
      * @param index Index position which the label should be insert in the confusion matrix.
+     * @param addToHistory Whether the change should be added to history.
      * If null or undefined, will be added at the end of the confusion matrix.
      * @returns The confusion matrix with the new label.
      */
     addLabel(label: string, rowValues: Array<number>, columnsValues: Array<number>,
-        index = this._labels.length): ConfusionMatrix {
+        index = this._labels.length, addToHistory = true): ConfusionMatrix {
 
         // Data input validations
         if (rowValues[index] !== columnsValues[index]) {
@@ -1320,9 +1331,151 @@ export class ConfusionMatrix {
 
         }
         this.validate(cm);
-        this.setConfusionMatrix(cm);
+        this.setConfusionMatrix(cm, addToHistory);
 
         return this;
+    }
+
+    changeLabelOrder(initialPosition: number, finalPosition: number): ConfusionMatrix {
+
+
+        if (initialPosition === finalPosition) {
+            return this;
+        }
+
+        if (this._matrix.length < 2) {
+            throw new Error(`It is not possible to change label order on a confusion matrix with columns/rows < 2`);
+        }
+
+        if (initialPosition < 0 || initialPosition >= this._matrix.length) {
+            throw new Error(`The initialPosition value should be between [0, ${this._matrix.length}[`);
+        }
+
+        if (finalPosition < 0 || finalPosition >= this._matrix.length) {
+            throw new Error(`The initialPosition value should be between [0, ${this._matrix.length}[`);
+        }
+
+        if (initialPosition > finalPosition) {
+            const temp = finalPosition;
+            finalPosition = initialPosition;
+            initialPosition = temp;
+        }
+
+        // Change labels
+        const temp = this._labels[finalPosition];
+        this._labels[finalPosition] = this._labels[initialPosition];
+        this._labels[initialPosition] = temp;
+
+        const initialRows = this.getRow(initialPosition);
+        const endRows = this.getRow(finalPosition);
+
+        // Change rows
+        this._matrix[initialPosition] = endRows;
+        this._matrix[finalPosition] = initialRows;
+
+        const initialColumns = this.getColumn(initialPosition);
+        const endColumns = this.getColumn(finalPosition);
+
+        // Change columns
+        this._matrix.forEach((value, index) => {
+            this._matrix[index][initialPosition] = endColumns[index];
+            this._matrix[index][finalPosition] = initialColumns[index];
+        });
+
+        this.addToHistory();
+        return this;
+    }
+
+    /**
+     * Converts the confusion matrix to a given data type.
+     * @param type Data type which confusion matrix will be converted into.
+     * @returns 
+     */
+    convertTo(type: SupportedDataTypes): string {
+        switch (type) {
+            case SupportedDataTypes.JSON:
+                return this.convertToJson();
+        }
+    }
+
+    /**
+     * Convert the current confusion matrix to a valid json.
+     * @returns A valid json
+     */
+    convertToJson(): string {
+        const cmJson = new Object(
+            {
+                softwareVersion: version,
+                labels: this.labels,
+                matrix: this.matrix,
+                normalizations: this.normalizations
+            }
+        );
+
+        return JSON.stringify(cmJson);
+    }
+
+    /**
+     * Imports a confusion matrix from a set define formats.
+     * @param confusionMatrix The string value representing the confusion matrix.
+     * @param type The confusion matrix data type format
+     * @returns This confusion matrix containing the data.
+     */
+    import(confusionMatrix: string, type: SupportedDataTypes): ConfusionMatrix {
+        switch (type) {
+            case SupportedDataTypes.JSON:
+                this.importAsJson(confusionMatrix);
+                break;
+        }
+        return this;
+    }
+
+    /**
+     * Imports the values from a json
+     * @param json Json object.
+     * @returns This confusion matrix containing the json data.
+     */
+    importAsJson(json: string): ConfusionMatrix {
+        try {
+            const jsonCm = JSON.parse(json);
+            const cm = new ConfusionMatrix();
+            cm._labels = jsonCm.labels;
+            cm._matrix = jsonCm.matrix;
+            cm.normalizations = jsonCm.normalizations;
+            cm.validate();
+            this.reset();
+            this._labels = cm._labels;
+            this._matrix = cm._matrix;
+            this.normalizations = cm.normalizations;
+            this.addToHistory();
+        } catch (ex: any) {
+            throw new Error(`It was not possible to import the json.\n Details:\n${ex}`);
+        }
+        return this;
+    }
+
+    /**  
+     * Resets (cleans) all all values from the confusion matrix. 
+     * @returns This confusion matrix "reseted".
+     */
+    reset(): ConfusionMatrix {
+        this._labels = [];
+        this._matrix = [];
+        this.normalizations = [];
+        this.history = [];
+        this.historyPointer = -1;
+        this.lastHistoryEvent = null;
+        return this;
+    }
+
+    private getRow(index: number): Array<number> {
+        return this.deepCopy(this._matrix[index]);
+    }
+
+    private getColumn(index: number): Array<number> {
+        const column = new Array<number>();
+        this._matrix.forEach((value, i) => column.push(value[index]));
+        return column;
     }
 
     /**
@@ -1394,3 +1547,7 @@ export interface ConfusionMatrixClasses {
 /** Number of fraction digits a number can have. */
 export type FractionDigits = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
     13 | 14 | 15 | 16 | 17 | 18 | 19 | 20
+
+export enum SupportedDataTypes {
+    JSON
+}
