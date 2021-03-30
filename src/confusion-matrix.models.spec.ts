@@ -1014,16 +1014,16 @@ describe("Confusion matrix model test suite", () => {
             .toThrow(new Error('It is not possible to change label order on a confusion matrix with columns/rows < 2'));
 
         expect(() => confusionMatrix.changeLabelOrder(-1, 0))
-            .toThrow(new Error('The initialPosition value should be between [0, 3['));
+            .toThrow(new Error('The firstLabelPosition value should be between [0, 3['));
 
         expect(() => confusionMatrix.changeLabelOrder(20, 0))
-            .toThrow(new Error('The initialPosition value should be between [0, 3['));
+            .toThrow(new Error('The firstLabelPosition value should be between [0, 3['));
 
         expect(() => confusionMatrix.changeLabelOrder(0, -1))
-            .toThrow(new Error('The finalPosition value should be between [0, 3['));
+            .toThrow(new Error('The secondLabelPosition value should be between [0, 3['));
 
         expect(() => confusionMatrix.changeLabelOrder(0, 20))
-            .toThrow(new Error('The finalPosition value should be between [0, 3['));
+            .toThrow(new Error('The secondLabelPosition value should be between [0, 3['));
 
 
     });

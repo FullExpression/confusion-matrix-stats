@@ -1280,7 +1280,13 @@ export class ConfusionMatrix {
         return this;
     }
 
-
+    /**
+     * Removes a given label from the confusion matrix using index value.
+     * If the label does not exits, nothing will happen (no error will be thrown).
+     * @param position Label array index position.
+     * @param addToHistory Whether the change should be added to history.
+     * @returns The confusion matrix after the label removal.
+     */
     removeLabelUsingPosition(position: number, addToHistory = true): ConfusionMatrix {
         if (position > -1) {
             this._labels.splice(position, 1);
@@ -1336,9 +1342,15 @@ export class ConfusionMatrix {
         return this;
     }
 
-    changeLabelOrder(initialPosition: number, finalPosition: number): ConfusionMatrix {
+    /**
+     * Change the position of two labels.
+     * @param firstLabelPosition The position of the first label.
+     * @param secondLabelPosition The position of the second label.
+     * @returns The confusion with the labels changed.
+     */
+    changeLabelOrder(firstLabelPosition: number, secondLabelPosition: number): ConfusionMatrix {
 
-        if (initialPosition === finalPosition) {
+        if (firstLabelPosition === secondLabelPosition) {
             return this;
         }
 
@@ -1346,39 +1358,39 @@ export class ConfusionMatrix {
             throw new Error(`It is not possible to change label order on a confusion matrix with columns/rows < 2`);
         }
 
-        if (initialPosition < 0 || initialPosition >= this._matrix.length) {
-            throw new Error(`The initialPosition value should be between [0, ${this._matrix.length}[`);
+        if (firstLabelPosition < 0 || firstLabelPosition >= this._matrix.length) {
+            throw new Error(`The firstLabelPosition value should be between [0, ${this._matrix.length}[`);
         }
 
-        if (finalPosition < 0 || finalPosition >= this._matrix.length) {
-            throw new Error(`The finalPosition value should be between [0, ${this._matrix.length}[`);
+        if (secondLabelPosition < 0 || secondLabelPosition >= this._matrix.length) {
+            throw new Error(`The secondLabelPosition value should be between [0, ${this._matrix.length}[`);
         }
 
-        if (initialPosition > finalPosition) {
-            const temp = finalPosition;
-            finalPosition = initialPosition;
-            initialPosition = temp;
+        if (firstLabelPosition > secondLabelPosition) {
+            const temp = secondLabelPosition;
+            secondLabelPosition = firstLabelPosition;
+            firstLabelPosition = temp;
         }
 
         // Change labels
-        const temp = this._labels[finalPosition];
-        this._labels[finalPosition] = this._labels[initialPosition];
-        this._labels[initialPosition] = temp;
+        const temp = this._labels[secondLabelPosition];
+        this._labels[secondLabelPosition] = this._labels[firstLabelPosition];
+        this._labels[firstLabelPosition] = temp;
 
-        const initialRows = this.getRow(initialPosition);
-        const endRows = this.getRow(finalPosition);
+        const initialRows = this.getRow(firstLabelPosition);
+        const endRows = this.getRow(secondLabelPosition);
 
         // Change rows
-        this._matrix[initialPosition] = endRows;
-        this._matrix[finalPosition] = initialRows;
+        this._matrix[firstLabelPosition] = endRows;
+        this._matrix[secondLabelPosition] = initialRows;
 
-        const initialColumns = this.getColumn(initialPosition);
-        const endColumns = this.getColumn(finalPosition);
+        const initialColumns = this.getColumn(firstLabelPosition);
+        const endColumns = this.getColumn(secondLabelPosition);
 
         // Change columns
         this._matrix.forEach((value, index) => {
-            this._matrix[index][initialPosition] = endColumns[index];
-            this._matrix[index][finalPosition] = initialColumns[index];
+            this._matrix[index][firstLabelPosition] = endColumns[index];
+            this._matrix[index][secondLabelPosition] = initialColumns[index];
         });
 
         this.addToHistory();
@@ -1471,6 +1483,11 @@ export class ConfusionMatrix {
         return this.deepCopy(this._matrix[index]);
     }
 
+    /**
+     * Gets a column from the matrix.
+     * @param index The column index.
+     * @returns The column
+     */
     private getColumn(index: number): Array<number> {
         const column = new Array<number>();
         this._matrix.forEach((value, i) => column.push(value[index]));
@@ -1495,6 +1512,9 @@ export class ConfusionMatrix {
         return 2 * ((precision * recall) / (precision + recall)) || 0;
     }
 
+    /**
+     * Saves the current matrix state in history.
+     */
     private addToHistory() {
 
         if (this.historyPointer === -1) {
