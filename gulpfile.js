@@ -15,7 +15,7 @@ exports.copyDistFiles = () => {
     return gulp.src([
         'package.json',
         'README.md'
-    ]).pipe(gulp.dest('./dist'));
+    ]).pipe(gulp.dest('./dist/src'));
 }
 
 exports.publishWebSite = () => {

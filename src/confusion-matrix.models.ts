@@ -1,4 +1,4 @@
-import { version } from '../package.json';
+const version = require('./package.json');
 
 /**
  * Confusion matrix model which summarizes the prediction results on a classification problem.

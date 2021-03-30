@@ -5,12 +5,11 @@
     "main": "index.js",
     "types": "index.d.ts",
     "scripts": {
-        "build": "npm run tsc && gulp afterTsc && webpack && gulp deleteUnnecessaryFiles",
+        "build": "npm run tsc && gulp copyDistFiles && gulp afterTsc && webpack && gulp deleteUnnecessaryFiles",
         "tsc": "./node_modules/.bin/tsc",
         "test": "jest --watch",
         "build-test": "jest",
         "docs": "typedoc --out website/docs src/index.ts",
-        "postbuild": "gulp copyDistFiles",
         "publish-web-site": "npm run build && npm run docs && gulp publishWebSite",
         "test:coverage": "jest --coverage",
         "test:badges": "npm run test:coverage  && jest-coverage-badges --input coverage/coverage-summary.json --output badges"
