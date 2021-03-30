@@ -2,12 +2,21 @@
  * Handles package.json information.
  */
 export class PackageData {
-    /** Gets the software version */
-    static get version(): number {
+
+    /** 
+     * Gets the software version 
+     * @return the software version.
+     * */
+    static get version(): string {
         try {
             return require('./package.json').version;
         } catch (ex) {
-            return require('../package.json').version;
+            try {
+                return require('../package.json').version;
+            } catch (ex) {
+                return '0.0.0'
+            }
+
         }
     }
 }
