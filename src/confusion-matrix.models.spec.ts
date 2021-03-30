@@ -977,9 +977,9 @@ describe("Confusion matrix model test suite", () => {
     });
 
     it("Can change label order.", () => {
-        const confusionMatrix = TestsHelper.getConfusionMatrix();
+        let confusionMatrix = TestsHelper.getConfusionMatrix();
         confusionMatrix.changeLabelOrder(0, 2);
-        const newConfusionMatrix = new ConfusionMatrix({
+        let newConfusionMatrix = new ConfusionMatrix({
             labels: ["Mango", "Orange", "Apple"],
             matrix: [[0, 2, 3],
             [3, 2, 1],
@@ -988,6 +988,44 @@ describe("Confusion matrix model test suite", () => {
 
         expect(newConfusionMatrix.matrix).toEqual(confusionMatrix.matrix);
         expect(newConfusionMatrix.labels).toEqual(confusionMatrix.labels);
+
+        confusionMatrix = TestsHelper.getConfusionMatrix();
+        newConfusionMatrix = new ConfusionMatrix({
+            labels: ["Mango", "Orange", "Apple"],
+            matrix: [[0, 2, 3],
+            [3, 2, 1],
+            [10, 8, 7]]
+        });
+        confusionMatrix.changeLabelOrder(2, 0);
+        newConfusionMatrix = new ConfusionMatrix({
+            labels: ["Mango", "Orange", "Apple"],
+            matrix: [[0, 2, 3],
+            [3, 2, 1],
+            [10, 8, 7]]
+        });
+
+        newConfusionMatrix = confusionMatrix.clone();
+        confusionMatrix.changeLabelOrder(0, 0);
+        expect(confusionMatrix).toEqual(newConfusionMatrix);
+
+        newConfusionMatrix = new ConfusionMatrix({ labels: ['Happiness'], matrix: [[1]] });
+
+        expect(() => newConfusionMatrix.changeLabelOrder(0, 1))
+            .toThrow(new Error('It is not possible to change label order on a confusion matrix with columns/rows < 2'));
+
+        expect(() => confusionMatrix.changeLabelOrder(-1, 0))
+            .toThrow(new Error('The initialPosition value should be between [0, 3['));
+
+        expect(() => confusionMatrix.changeLabelOrder(20, 0))
+            .toThrow(new Error('The initialPosition value should be between [0, 3['));
+
+        expect(() => confusionMatrix.changeLabelOrder(0, -1))
+            .toThrow(new Error('The finalPosition value should be between [0, 3['));
+
+        expect(() => confusionMatrix.changeLabelOrder(0, 20))
+            .toThrow(new Error('The finalPosition value should be between [0, 3['));
+
+
     });
 
 });

@@ -1338,7 +1338,6 @@ export class ConfusionMatrix {
 
     changeLabelOrder(initialPosition: number, finalPosition: number): ConfusionMatrix {
 
-
         if (initialPosition === finalPosition) {
             return this;
         }
@@ -1352,7 +1351,7 @@ export class ConfusionMatrix {
         }
 
         if (finalPosition < 0 || finalPosition >= this._matrix.length) {
-            throw new Error(`The initialPosition value should be between [0, ${this._matrix.length}[`);
+            throw new Error(`The finalPosition value should be between [0, ${this._matrix.length}[`);
         }
 
         if (initialPosition > finalPosition) {
