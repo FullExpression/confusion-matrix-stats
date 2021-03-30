@@ -5,7 +5,8 @@
     "main": "index.js",
     "types": "index.d.ts",
     "scripts": {
-        "build": "./node_modules/.bin/tsc && webpack",
+        "build": "npm run tsc && gulp afterTsc && webpack && gulp deleteUnnecessaryFiles",
+        "tsc": "./node_modules/.bin/tsc",
         "test": "jest --watch",
         "build-test": "jest",
         "docs": "typedoc --out website/docs src/index.ts",
@@ -26,6 +27,7 @@
     "homepage": "https://github.com/FullExpression/confusion-matrix-stats#readme",
     "devDependencies": {
         "@types/jest": "^26.0.20",
+        "del": "^6.0.0",
         "gh-pages": "^3.1.0",
         "gulp": "^4.0.2",
         "jest": "^26.6.3",
@@ -34,6 +36,7 @@
         "ts-loader": "^8.0.18",
         "typedoc": "^0.20.32",
         "typescript": "^4.2.3",
+        "vinyl-paths": "^3.0.1",
         "webpack": "^5.26.0",
         "webpack-cli": "^4.5.0"
     },

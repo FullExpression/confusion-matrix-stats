@@ -1,5 +1,15 @@
 const gulp = require('gulp');
 const ghpages = require('gh-pages');
+const del = require('del');
+
+
+exports.deleteUnnecessaryFiles = () => {
+    return del('./dist/src');
+}
+
+exports.afterTsc = () => {
+    return gulp.src('./dist/src/**/*').pipe(gulp.dest('dist'));
+};
 
 exports.copyDistFiles = () => {
     return gulp.src([
