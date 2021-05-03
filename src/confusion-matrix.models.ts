@@ -1,4 +1,4 @@
-import { version } from '../package.json';
+import { PackageData } from "./package-data";
 
 /**
  * Confusion matrix model which summarizes the prediction results on a classification problem.
@@ -1416,7 +1416,7 @@ export class ConfusionMatrix {
     convertToJson(): string {
         const cmJson = new Object(
             {
-                softwareVersion: version,
+                softwareVersion: PackageData.version,
                 labels: this.labels,
                 matrix: this.matrix,
                 normalizations: this.normalizations

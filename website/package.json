@@ -1,0 +1,30 @@
+{
+    "name": "confusion-matrix-stats-web-site",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "directories": {
+        "doc": "docs"
+    },
+    "scripts": {
+        "start": "concurrently --kill-others \"http-server\" \"npm run build\"",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "webpack --mode=development"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@fullexpression/confusion-matrix-stats": "^1.5.2",
+        "http-server": "^0.12.3",
+        "monaco-editor": "^0.23.0",
+        "style-loader": "^2.0.0"
+    },
+    "devDependencies": {
+        "concurrently": "^6.0.2",
+        "css-loader": "^5.2.4",
+        "file-loader": "^6.2.0",
+        "monaco-editor-webpack-plugin": "^3.0.1",
+        "webpack": "^5.36.2",
+        "webpack-cli": "^4.6.0"
+    }
+}

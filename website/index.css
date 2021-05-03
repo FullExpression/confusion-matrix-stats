@@ -99,3 +99,10 @@ a:link {
     align-items: center;
     max-width: 372px;
 }
+
+.code-editor {
+    position: relative;
+    min-width: 600px;
+    min-height: 400px;
+    text-align: initial;
+}
