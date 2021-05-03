@@ -5,7 +5,7 @@
     "main": "index.js",
     "types": "index.d.ts",
     "scripts": {
-        "build": "npm run tsc && gulp copyDistFiles && gulp afterTsc && webpack && gulp deleteUnnecessaryFiles",
+        "build": "npm run tsc && gulp copyDistFiles && gulp handlesPackageInfo && gulp afterTsc && webpack && gulp deleteUnnecessaryFiles",
         "tsc": "./node_modules/.bin/tsc",
         "test": "jest --watch",
         "build-test": "jest",
